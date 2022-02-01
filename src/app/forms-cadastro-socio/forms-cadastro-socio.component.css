@@ -1,0 +1,12 @@
+.ng-invalid.ng-touched:not(form) {
+    border: 1px solid red;
+}
+
+.espacamento-btn{
+    margin-left: 10px;
+}
+
+h5 {
+    margin-top: 10px;
+}
+

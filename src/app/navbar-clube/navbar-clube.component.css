@@ -1,0 +1,27 @@
+li a {
+    display: block;
+    color: rgb(255, 255, 255);
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+  }
+
+  nav a {
+    display: block;
+    color: rgb(255, 255, 255);
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+
+  .dropdown-item {
+    background-color: #0477BF;
+    color: rgb(0, 0, 0);
+  }
+
+  #nav-color {
+    background-image: linear-gradient(to right, #0477BF, #5CE3F2);
+  }

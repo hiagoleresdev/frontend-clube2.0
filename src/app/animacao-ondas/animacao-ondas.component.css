@@ -1,0 +1,40 @@
+waves{
+    position: relative;
+}
+.waves {
+    margin-top: 300px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.wave-1 {
+    animation: moveWave1 3s ease-in-out infinite alternate;
+}
+
+@keyframes moveWave1 {
+    from {
+        transform: translate(-2000px);
+    }
+}
+
+.wave-2 {
+    animation: moveWave2 3s 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes moveWave2 {
+    from {
+        transform: translate(-1800px);
+    }
+}
+
+.wave-3 {
+    animation: moveWave3 3s 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes moveWave3 {
+    from {
+        transform: translate(-1600px);
+    }
+}

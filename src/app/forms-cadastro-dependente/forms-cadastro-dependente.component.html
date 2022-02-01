@@ -1,0 +1,105 @@
+<div class="border border-light rounded p-5" *ngIf="visibilidadeTabela">
+  <div>
+  <button type="button" class="btn btn-dark btnAdicionar" (click)="ExibirFormularioCadastro()">
+    Novo dependente
+  </button>
+  </div>
+
+
+  <br>
+
+<table class="table table-striped table-hover table-sm" *ngIf="dependentes">
+  <tr class="thead tabela">
+    <th>Id</th>
+    <th>Nome</th>
+    <th>Email</th>
+    <th>Parentesco</th>
+    <th>Cartão sócio</th>
+    <th>Ações</th>
+  </tr>
+
+  <tr *ngFor="let dependente of dependentes">
+    <td>{{dependente.id}}</td>
+    <td>{{dependente.nome}}</td>
+    <td>{{dependente.email}}</td>
+    <td>{{dependente.parentesco}}</td>
+    <td>{{dependente.socio.numeroCartao}}</td>
+
+    <td>
+      <button type="button" class="btn btn-success" style="margin-right: 20px;" (click)="ExibirFormularioAtualizacao(dependente.id)">Atualizar</button>
+      <button type="button" class="btn btn-danger" (click)="ExibirConfirmacaoExclusao(dependente.id, dependente.nome, conteudoModal)">Excluir</button>
+    </td>
+
+  </tr>
+
+
+</table>
+</div>
+
+  <div class="row">
+    <div class="col-6 border border-light rounded p-5 shadow" *ngIf="visibilidadeFormulario">
+      <h6>Cadastro de dependente</h6>
+      <hr>
+
+      <form [formGroup]="formulario" (ngSubmit)="EnviarDependente()">
+
+        <div class="form-group">
+          <label>Nome:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="nome">
+        </div>
+
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="email" class="form-control form-control-sm" formControlName="email">
+        </div>
+
+        <div class="form-group">
+          <label>Parentesco:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="parentesco">
+        </div>
+
+        <div class="form-group">
+          <label>Numero cartão:</label>
+          <input type="number" class="form-control form-control-sm" formControlName="numeroCartao">
+        </div>
+
+        <div class="form-group">
+          <label>Id Socio:</label>
+          <input type="number" class="form-control form-control-sm" formControlName="fkSocio">
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div>
+              <button type="submit" class="btn btn-sm btn-success">Salvar</button>
+            </div>
+            <div class="pl-1">
+              <button type="submit" class="btn btn-sm btn-outline-slight" (click)="Voltar()">Voltar</button>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <ng-template #conteudoModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Confirmação</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Prosseguir com a exclusao?
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modalRef.hide()">Não</button>
+      <button type="button" class="btn btn-outline-danger" (click)="ExcluirDependente(dependenteId)">Sim</button>
+    </div>
+  </ng-template>
+
+<animacao-ondas></animacao-ondas>

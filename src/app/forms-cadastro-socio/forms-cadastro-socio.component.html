@@ -1,0 +1,145 @@
+  <div class="border border-light rounded p-5" *ngIf="visibilidadeTabela">
+    <div>
+    <button type="button" class="btn btn-dark btnAdicionar" (click)="ExibirFormularioCadastro()">
+      Novo sócio
+    </button>
+    </div>
+
+
+    <br>
+
+  <table class="table table-striped table-hover table-sm" *ngIf="socios">
+    <tr class="thead tabela">
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Numero cartão</th>
+      <th>Telefone</th>
+      <th>CEP</th>
+      <th>UF</th>
+      <th>Cidade</th>
+      <th>Bairro</th>
+      <th>Logradouro</th>
+      <th>Categoria</th>
+      <th>Ações</th>
+    </tr>
+
+    <tr *ngFor="let socio of socios">
+      <td>{{socio.id}}</td>
+      <td>{{socio.nome}}</td>
+      <td>{{socio.email}}</td>
+      <td>{{socio.numeroCartao}}</td>
+      <td>{{socio.telefone}}</td>
+      <td>{{socio.cep}}</td>
+      <td>{{socio.uf}}</td>
+      <td>{{socio.cidade}}</td>
+      <td>{{socio.bairro}}</td>
+      <td>{{socio.logradouro}}</td>
+      <td>{{socio.categoria.tipo}}</td>
+
+      <td>
+        <button type="button" class="btn btn-success"  (click)="ExibirFormularioAtualizacao(socio.id)">Atualizar</button>
+        <button type="button" class="btn btn-danger espacamento-btn" (click)="ExibirConfirmacaoExclusao(socio.id,socio.nome,conteudoModal)">Excluir</button>
+      </td>
+
+    </tr>
+
+
+  </table>
+</div>
+
+  <!--formulario-->
+  <div class="row">
+    <div class="col-6 border border-light rounded p-5 shadow" *ngIf="visibilidadeFormulario ">
+      <h6>Cadastro de sócio</h6>
+      <hr>
+
+      <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
+
+        <div class="form-group">
+          <label>Nome:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="nome">
+        </div>
+
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="email" class="form-control form-control-sm" formControlName="email">
+        </div>
+
+        <div class="form-group">
+          <label>Número cartão:</label>
+          <input type="number" class="form-control form-control-sm" formControlName="numeroCartao">
+        </div>
+
+        <div class="form-group">
+          <label>Telefone:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="telefone">
+        </div>
+
+        <div class="form-group">
+          <label>CEP:</label>
+          <input type="number" class="form-control form-control-sm" formControlName="cep">
+        </div>
+
+        <div class="form-group">
+          <label>UF:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="uf">
+        </div>
+
+        <div class="form-group">
+          <label>Cidade:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="cidade">
+        </div>
+
+        <div class="form-group">
+          <label>Bairro:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="bairro">
+        </div>
+
+        <div class="form-group">
+          <label>Logradouro:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="logradouro">
+        </div>
+
+        <div class="form-group">
+          <label>Categoria:</label>
+          <input type="number" class="form-control form-control-sm" formControlName="fkcategoria">
+        </div>
+
+
+
+        <div class="container">
+          <div class="row">
+            <div>
+              <button type="submit" class="btn btn-sm btn-success">Salvar</button>
+            </div>
+            <div class="pl-1">
+              <button type="submit" class="btn btn-sm btn-outline-slight" (click)="Voltar()">Voltar</button>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <ng-template #conteudoModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Confirmação</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Prosseguir com a exclusao?
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modalRef.hide()">Não</button>
+      <button type="button" class="btn btn-outline-danger" (click)="ExcluirSocio(socioId)">Sim</button>
+    </div>
+  </ng-template>
+
+  <animacao-ondas></animacao-ondas>
