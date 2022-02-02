@@ -27,6 +27,10 @@ export class FormsCadastroSocioComponent implements OnInit {
 
   modalRef: BsModalRef;
 
+  //máscaras
+  maskTelefone = ['(',/\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/,/\d/,/\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  maskCep = [' ', /\d/, /\d/, /\d/,/\d/,/\d/, '-', /\d/, /\d/, /\d/]
+
 
   ngOnInit(): void {
 

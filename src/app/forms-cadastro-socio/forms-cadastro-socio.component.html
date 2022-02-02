@@ -49,57 +49,90 @@
 </div>
 
   <!--formulario-->
-  <div class="row">
-    <div class="col-6 border border-light rounded p-5 shadow" *ngIf="visibilidadeFormulario ">
-      <h6>Cadastro de sócio</h6>
-      <hr>
+  <div class="row justify-content-center">
+    <div class="col-6 border border-light" *ngIf="visibilidadeFormulario ">
 
-      <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
+      <form class="form-container" [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
+        <h6 class="titulo-cadastro text-center">CADASTRO DE SÓCIO</h6>
 
-        <div class="form-group">
-          <label>Nome:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="nome">
+        <!---Primeiro grupo-->
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Nome:</label>
+              <input type="text" class="form-control" formControlName="nome" placeholder="Digite seu nome">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label>Email:</label>
+              <input type="email" class="form-control form-control-sm" formControlName="email" placeholder="Digite seu email">
+            </div>
+
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Email:</label>
-          <input type="email" class="form-control form-control-sm" formControlName="email">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Telefone:</label>
+              <input [textMask]="{mask: maskTelefone}" type="text" class="form-control form-control-sm" formControlName="telefone" placeholder="(00) 0000-0000">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label>Número cartão:</label>
+              <input type="number" class="form-control form-control-sm" formControlName="numeroCartao" placeholder="Digite seu número de cartão">
+            </div>
+          </div>
+
         </div>
 
-        <div class="form-group">
-          <label>Número cartão:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="numeroCartao">
+        <hr>
+
+          <!---Segundo grupo-->
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Cidade:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="cidade" placeholder="Digite sua cidade">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label>Bairro:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="bairro" placeholder="Digite seu bairro">
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Telefone:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="telefone">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Logradouro:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="logradouro" placeholder="Digite o logradouro">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label>UF:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="uf" placeholder="Digite a uf do estado">
+            </div>
+          </div>
+
         </div>
 
         <div class="form-group">
           <label>CEP:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="cep">
+          <input  [textMask]="{mask: maskCep}" type="text" class="form-control form-control-sm" formControlName="cep" placeholder="00000-000">
         </div>
 
-        <div class="form-group">
-          <label>UF:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="uf">
-        </div>
 
-        <div class="form-group">
-          <label>Cidade:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="cidade">
-        </div>
 
-        <div class="form-group">
-          <label>Bairro:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="bairro">
-        </div>
 
-        <div class="form-group">
-          <label>Logradouro:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="logradouro">
-        </div>
 
         <div class="form-group">
           <label>Categoria:</label>
@@ -109,15 +142,14 @@
 
 
         <div class="container">
-          <div class="row">
+          <div class="row justify-content-end">
             <div>
-              <button type="submit" class="btn btn-sm btn-success">Salvar</button>
+              <button type="submit" class="botao-Salvar btn btn-sm btn-success">Salvar</button>
             </div>
             <div class="pl-1">
               <button type="submit" class="btn btn-sm btn-outline-slight" (click)="Voltar()">Voltar</button>
             </div>
-
-          </div>
+            </div>
         </div>
 
       </form>

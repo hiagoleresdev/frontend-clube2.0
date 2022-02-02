@@ -10,3 +10,19 @@ h5 {
     margin-top: 10px;
 }
 
+.form-container{
+  top: 15vh;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px 0px #0477bf;
+}
+
+.titulo-cadastro{
+  font-size: 30px;
+  color: #0477bf;
+}
+
+.botao-Salvar{
+  background-color: #00ac96;
+}

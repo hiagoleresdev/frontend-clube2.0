@@ -31,6 +31,7 @@ import { DependenteDTOService } from './DTOs/Services/dependente-dto.service';
 //import { FuncionarioDTOService } from './DTOs/Services/funcionario-dto.service';
 import { MensalidadeDTOService } from './DTOs/Services/mensalidade-dto.service';
 import { SocioDTOService } from './DTOs/Services/socio-dto.service';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { SocioDTOService } from './DTOs/Services/socio-dto.service';
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TextMaskModule
   ],
   providers: [LoginAutenticacaoService, HttpClientModule, CategoriaService,
   DependenteService, FuncionarioService, MensalidadesService, SocioService ],
