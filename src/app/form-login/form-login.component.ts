@@ -9,18 +9,18 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './form-login.component.html',
   styleUrls: ['./form-login.component.css']
 })
-export class FormLoginComponent implements OnInit {
+export class FormLoginComponent implements OnInit 
+{
 
  usuario: Usuario = new Usuario();
 
   groupLogin: FormGroup;
   constructor(private loginAutenticacaoService: LoginAutenticacaoService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-  fazerLogin(){
-    //console.log(this.usuario)
+  fazerLogin()
+  {
     this.loginAutenticacaoService.fazerLogin(this.usuario);
   }
 

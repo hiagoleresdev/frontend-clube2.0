@@ -17,17 +17,34 @@ export class LoginAutenticacaoService {
   fazerLogin(usuario: Usuario)
   {
 
-     if(this.funcionarioService.ValidarFuncionario(usuario.nome, usuario.senha)){
+    this.funcionarioService.ValidarFuncionario(usuario.Usuario, usuario.Senha).subscribe(response => 
+    {
+      if(response.status == 200)
+      {
+        this.usuarioAutenticado = true;
 
-       this.usuarioAutenticado = true;
+        this.mostrarMenuEmitter.emit(true);
 
-       this.mostrarMenuEmitter.emit(true);
+        alert(response.body);
 
-       this.router.navigate(["/home"]);
-     } else {
-       this.usuarioAutenticado = false;
+        this.router.navigate(["/home"]);
+      }
+      else if(response.status == 404)
+      {
+        this.usuarioAutenticado = false;
 
-       this.mostrarMenuEmitter.emit(false);
-     }
-}
+        this.mostrarMenuEmitter.emit(false);
+        
+        alert(response.body);
+      }
+      else
+      {
+        this.usuarioAutenticado = false;
+
+        this.mostrarMenuEmitter.emit(false);
+
+        alert(response.body)
+      }
+    })
+  }
 }

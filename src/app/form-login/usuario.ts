@@ -1,6 +1,5 @@
-export class Usuario{
-
-    nome: string = "";
-    senha: string = "";
-
+export class Usuario
+{
+    Usuario: string;
+    Senha: string;
 }

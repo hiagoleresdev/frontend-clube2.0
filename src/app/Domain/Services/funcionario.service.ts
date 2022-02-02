@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class FuncionarioService{
-  url= 'https://localhost:7156/api/Mensalidade';
+  url= 'https://localhost:7156/api/Funcionario';
 
 constructor(private http: HttpClient) { }
 
@@ -22,7 +22,8 @@ constructor(private http: HttpClient) { }
     return this.http.get<Funcionario>(apiUrl);
   }
 
-  ValidarFuncionario(usuario: string, senha: string) : Observable<any>{
+  ValidarFuncionario(usuario: string, senha: string) : Observable<any>
+  {
     const apiUrl = `${this.url}/${usuario}/${senha}`;
     return this.http.get(apiUrl, {responseType: "text", observe: 'response'});
   }
