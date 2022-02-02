@@ -36,31 +36,31 @@
 </table>
 </div>
 
-  <div class="row">
-    <div class="col-6 border border-light rounded p-5 shadow" *ngIf="visibilidadeFormulario">
-      <h6>Cadastro de dependente</h6>
-      <hr>
+  <div class="row justify-content-center">
+    <div class="col-6 border border-light" *ngIf="visibilidadeFormulario">
 
-      <form [formGroup]="formulario" (ngSubmit)="EnviarDependente()">
+
+      <form class="form-container" [formGroup]="formulario" (ngSubmit)="EnviarDependente()">
+        <h6 class="titulo-cadastro text-center">CADASTRO DE DEPENDENTE</h6>
 
         <div class="form-group">
           <label>Nome:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="nome">
+          <input type="text" class="form-control form-control-sm" formControlName="nome" placeholder="Digite seu nome">
         </div>
 
         <div class="form-group">
           <label>Email:</label>
-          <input type="email" class="form-control form-control-sm" formControlName="email">
+          <input type="email" class="form-control form-control-sm" formControlName="email" placeholder="Digite seu email">
         </div>
 
         <div class="form-group">
           <label>Parentesco:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="parentesco">
+          <input type="text" class="form-control form-control-sm" formControlName="parentesco" placeholder="Digite seu parentesco">
         </div>
 
         <div class="form-group">
           <label>Numero cartão:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="numeroCartao">
+          <input type="number" class="form-control form-control-sm" formControlName="numeroCartao" placeholder="Digite o número do cartão">
         </div>
 
         <div class="form-group">

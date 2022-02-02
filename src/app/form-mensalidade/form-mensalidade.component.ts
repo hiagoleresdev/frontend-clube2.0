@@ -25,6 +25,8 @@ export class FormMensalidadeComponent implements OnInit {
 
   modalRef: BsModalRef;
 
+  maskData =  [/\d/, /\d/, '/',/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
+
   ngOnInit(): void {
     this.mensalidadeService.PegarTodos().subscribe(resultado => {
       this.mensalidades = resultado

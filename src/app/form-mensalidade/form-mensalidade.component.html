@@ -42,26 +42,27 @@
 </table>
 </div>
 
-<div class="row">
-  <div class="col-6 border border-light rounded p-5 shadow" *ngIf="visibilidadeFormulario">
-    <h6>Cadastro de mensalidade</h6>
-    <hr>
+<div class="row justify-content-center">
+  <div class="col-6 border border-light" *ngIf="visibilidadeFormulario">
 
-    <form [formGroup]="formulario" (ngSubmit)="EnviarMensalidade()">
 
+
+    <form  class="form-container"  [formGroup]="formulario" (ngSubmit)="EnviarMensalidade()">
+
+      <h6 class="titulo-cadastro text-center">Cadastro de mensalidade</h6>
       <div class="form-group">
         <label>Data de vencimento:</label>
-        <input type="text" class="form-control form-control-sm" formControlName="dataVencimento">
+        <input [textMask]="{mask: maskData}" type="text" class="form-control form-control-sm" formControlName="dataVencimento" placeholder="00/00/0000">
       </div>
 
       <div class="form-group">
         <label>Valor inicial:</label>
-        <input type="number" class="form-control form-control-sm" formControlName="valorInicial">
+        <input type="number" class="form-control form-control-sm" formControlName="valorInicial" placeholder="Digite o valor inicial da mensalidade">
       </div>
 
       <div class="form-group">
         <label>Data de pagamento:</label>
-        <input type="text" class="form-control form-control-sm" formControlName="dataPagamento">
+        <input [textMask]="{mask: maskData}" type="text" class="form-control form-control-sm" formControlName="dataPagamento" placeholder="00/00/0000">
       </div>
 
       <div class="form-group">
@@ -86,7 +87,7 @@
 
 
       <div class="container">
-        <div class="row">
+        <div class="row justify-content-end">
           <div>
             <button type="submit" class="btn btn-sm btn-success">Salvar</button>
           </div>

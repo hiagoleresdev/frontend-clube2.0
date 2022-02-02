@@ -97,6 +97,7 @@ export class FormsCadastroSocioComponent implements OnInit {
 
     EnviarFormulario(): void {
       const socio : SocioDTO = this.formulario.value;
+      console.log(socio)
 
       if(socio.id > 0){
         this.sociosServiceDto.AtualizarSocio(socio).subscribe(resultado => {

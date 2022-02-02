@@ -30,13 +30,12 @@
 </div>
 
 
-  <div class="row">
-    <div class="col-6 border border-light rounded p-5 shadow" *ngIf="visibilidadeFormulario">
-      <h6>Cadastro de categoria</h6>
-      <hr>
+  <div class="row justify-content-center">
+    <div class="col-6 border border-light" *ngIf="visibilidadeFormulario">
 
 
-        <form [formGroup]="formulario" (ngSubmit)="EnviarCategoria()" >
+        <form class="form-container" [formGroup]="formulario" (ngSubmit)="EnviarCategoria()" >
+          <h6 class="titulo-cadastro text-center">Cadastro de categoria</h6>
 
           <div class="form-group">
             <label>Tipo:</label>
@@ -51,7 +50,7 @@
 
 
           <div class="container">
-            <div class="row">
+            <div class="row justify-content-end">
               <div>
                 <button type="submit" class="btn btn-sm btn-success">Salvar</button>
               </div>
