@@ -6,7 +6,7 @@ import { LoginAutenticacaoService } from './form-login/login-autenticacao.servic
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
   title = 'clube';
 
   mostrarMenu: boolean = false;
@@ -17,8 +17,8 @@ export class AppComponent {
 
   ngOnInit(){
     this.loginAutenticacaoService.mostrarMenuEmitter.subscribe(
-      mostrar => this.mostrarMenu = mostrar
-    );
+      mostrar => this.mostrarMenu = mostrar     
+    );    
   }
 
 }

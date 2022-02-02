@@ -1,122 +1,126 @@
-<div class="border border-light rounded p-5" *ngIf="visibilidadeTabela">
-  <div>
-  <button id="btnEnviar" type="button" class="btn btn-dark btnAdicionar" (click)="ExibirFormularioCadastro()">
-    Nova mensalidade
-  </button>
-  </div>
-
-
-  <br>
-
-<table class="table table-striped table-hover table-sm">
-  <tr class="thead tabela">
-    <th>Id</th>
-    <th>Data de vencimento</th>
-    <th>Valor inicial</th>
-    <th>Data de pagamento</th>
-    <th>Juros</th>
-    <th>Valor final</th>
-    <th>Quitada</th>
-    <th>Cartão sócio</th>
-    <th>Ações</th>
-  </tr>
-
-  <tr *ngFor="let mensalidade of mensalidades">
-    <td>{{mensalidade.id}}</td>
-    <td>{{mensalidade.dataVencimento}}</td>
-    <td>{{mensalidade.valorInicial}}</td>
-    <td>{{mensalidade.dataPagamento}}</td>
-    <td>{{mensalidade.juros}}</td>
-    <td>{{mensalidade.valorFinal}}</td>
-    <td>{{mensalidade.quitada}}</td>
-    <td>{{mensalidade.socio.numeroCartao}}</td>
-
-    <td>
-      <button type="button" class="btn btn-success" (click)="ExibirFormularioAtualizacao(mensalidade.id)">Atualizar</button>
-    </td>
-    <td>
-      <button type="button" class="btn btn-danger" (click)="ExibirConfirmacaoExclusao(mensalidade.id,mensalidade.dataVencimento,conteudoModal)">Excluir</button>
-    </td>
-  </tr>
-
-</table>
-</div>
-
-<div class="row">
-  <div class="col-6 border border-light rounded p-5 shadow" *ngIf="visibilidadeFormulario">
-    <h6>Cadastro de mensalidade</h6>
-    <hr>
-
-    <form [formGroup]="formulario" (ngSubmit)="EnviarMensalidade()">
-
-      <div class="form-group">
-        <label>Data de vencimento:</label>
-        <input type="text" class="form-control form-control-sm" formControlName="dataVencimento">
-      </div>
-
-      <div class="form-group">
-        <label>Valor inicial:</label>
-        <input type="number" class="form-control form-control-sm" formControlName="valorInicial">
-      </div>
-
-      <div class="form-group">
-        <label>Data de pagamento:</label>
-        <input type="text" class="form-control form-control-sm" formControlName="dataPagamento">
-      </div>
-
-      <div class="form-group">
-        <label>Juros:</label>
-        <input type="number" class="form-control form-control-sm" formControlName="juros">
-      </div>
-
-      <div class="form-group">
-        <label>Valor final:</label>
-        <input type="number" class="form-control form-control-sm" formControlName="valorFinal">
-      </div>
-
-      <div class="form-group">
-        <label>Quitada:</label>
-        <input type="text" class="form-control form-control-sm" formControlName="quitada">
-      </div>
-
-      <div class="form-group">
-        <label>Id socio:</label>
-        <input type="text" class="form-control form-control-sm" formControlName="fkSocio">
-      </div>
-
-
-      <div class="container">
-        <div class="row">
-          <div>
-            <button type="submit" class="btn btn-sm btn-success">Salvar</button>
-          </div>
-          <div class="pl-1">
-            <button type="submit" class="btn btn-sm btn-outline-slight" (click)="Voltar()">Voltar</button>
-          </div>
-
-        </div>
-      </div>
-
-    </form>
-
-  </div>
-</div>
-
-<ng-template #conteudoModal>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Confirmação</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
+<navbar-clube></navbar-clube>
+<div class = "container">
+  <div class="border border-light rounded p-5" *ngIf="visibilidadeTabela">
+    <div>
+    <button id="btnEnviar" type="button" class="btn btn-dark btnAdicionar" (click)="ExibirFormularioCadastro()">
+      Nova mensalidade
     </button>
+    </div>
+  
+  
+    <br>
+  
+  <table class="table table-striped table-hover table-sm">
+    <tr class="thead tabela">
+      <th>Id</th>
+      <th>Data de vencimento</th>
+      <th>Valor inicial</th>
+      <th>Data de pagamento</th>
+      <th>Juros</th>
+      <th>Valor final</th>
+      <th>Quitada</th>
+      <th>Cartão sócio</th>
+      <th>Ações</th>
+    </tr>
+  
+    <tr *ngFor="let mensalidade of mensalidades">
+      <td>{{mensalidade.id}}</td>
+      <td>{{mensalidade.dataVencimento}}</td>
+      <td>{{mensalidade.valorInicial}}</td>
+      <td>{{mensalidade.dataPagamento}}</td>
+      <td>{{mensalidade.juros}}</td>
+      <td>{{mensalidade.valorFinal}}</td>
+      <td>{{mensalidade.quitada}}</td>
+      <td>{{mensalidade.socio.numeroCartao}}</td>
+  
+      <td>
+        <button type="button" class="btn btn-success" (click)="ExibirFormularioAtualizacao(mensalidade.id)">Atualizar</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="ExibirConfirmacaoExclusao(mensalidade.id,mensalidade.dataVencimento,conteudoModal)">Excluir</button>
+      </td>
+    </tr>
+  
+  </table>
   </div>
-  <div class="modal-body">
-    Prosseguir com a exclusao?
+  
+  <div class="row">
+    <div class="col-6 border border-light rounded p-5 shadow" *ngIf="visibilidadeFormulario">
+      <h6>Cadastro de mensalidade</h6>
+      <hr>
+  
+      <form [formGroup]="formulario" (ngSubmit)="EnviarMensalidade()">
+  
+        <div class="form-group">
+          <label>Data de vencimento:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="dataVencimento">
+        </div>
+  
+        <div class="form-group">
+          <label>Valor inicial:</label>
+          <input type="number" class="form-control form-control-sm" formControlName="valorInicial">
+        </div>
+  
+        <div class="form-group">
+          <label>Data de pagamento:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="dataPagamento">
+        </div>
+  
+        <div class="form-group">
+          <label>Juros:</label>
+          <input type="number" class="form-control form-control-sm" formControlName="juros">
+        </div>
+  
+        <div class="form-group">
+          <label>Valor final:</label>
+          <input type="number" class="form-control form-control-sm" formControlName="valorFinal">
+        </div>
+  
+        <div class="form-group">
+          <label>Quitada:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="quitada">
+        </div>
+  
+        <div class="form-group">
+          <label>Id socio:</label>
+          <input type="text" class="form-control form-control-sm" formControlName="fkSocio">
+        </div>
+  
+  
+        <div class="container">
+          <div class="row">
+            <div>
+              <button type="submit" class="btn btn-sm btn-success">Salvar</button>
+            </div>
+            <div class="pl-1">
+              <button type="submit" class="btn btn-sm btn-outline-slight" (click)="Voltar()">Voltar</button>
+            </div>
+  
+          </div>
+        </div>
+  
+      </form>
+  
+    </div>
   </div>
+  
+  <ng-template #conteudoModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Confirmação</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Prosseguir com a exclusao?
+    </div>
+  
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modalRef.hide()">Não</button>
+      <button type="button" class="btn btn-outline-danger" (click)="ExcluirMensalidade(mensalidadeId)">Sim</button>
+    </div>
+  </ng-template>
+</div>
 
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modalRef.hide()">Não</button>
-    <button type="button" class="btn btn-outline-danger" (click)="ExcluirMensalidade(mensalidadeId)">Sim</button>
-  </div>
-</ng-template>
 
 <animacao-ondas></animacao-ondas>
