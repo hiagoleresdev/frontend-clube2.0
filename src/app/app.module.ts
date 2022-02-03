@@ -33,6 +33,7 @@ import { MensalidadeDTOService } from './DTOs/Services/mensalidade-dto.service';
 import { SocioDTOService } from './DTOs/Services/socio-dto.service';
 import { TextMaskModule } from 'angular2-text-mask';
 
+
 @NgModule({
   declarations: [
     AppComponent,

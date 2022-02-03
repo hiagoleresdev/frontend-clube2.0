@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { conformToMask } from 'angular2-text-mask';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SocioService } from '../Domain/Services/socio.service';
 import { Socio } from '../Domain/Socio';
@@ -28,7 +29,7 @@ export class FormsCadastroSocioComponent implements OnInit {
   modalRef: BsModalRef;
 
   //máscaras
-  maskTelefone = ['(',/\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/,/\d/,/\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  maskTelefone =['(', /[1-9]/, /\d/,')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/]
   maskCep = [' ', /\d/, /\d/, /\d/,/\d/,/\d/, '-', /\d/, /\d/, /\d/]
 
 
@@ -44,11 +45,12 @@ export class FormsCadastroSocioComponent implements OnInit {
 
       });
 
-      this.socios = socios
     });
 
 
     }
+
+
 
     ExibirFormularioCadastro():void{
       this.visibilidadeTabela = false;

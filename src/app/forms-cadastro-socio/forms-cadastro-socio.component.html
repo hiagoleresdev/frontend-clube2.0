@@ -54,7 +54,7 @@
     <div class="col-6 border border-light" *ngIf="visibilidadeFormulario ">
 
       <form class="form-container" [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
-        <h6 class="titulo-cadastro text-center">Cadastro de sócio</h6>
+        <h6 class="titulo-cadastro text-center">CADASTRO DE SÓCIO</h6>
 
 
         <div class="row">
@@ -76,7 +76,7 @@
           <div class="col">
             <div class="form-group">
               <label>Telefone:</label>
-              <input [textMask]="{mask: maskTelefone}" type="text" class="form-control form-control-sm" formControlName="telefone" placeholder="Digite seu telefone">
+              <input type="text" [textMask]="{mask: maskTelefone}"  class="form-control form-control-sm" formControlName="telefone" placeholder="Digite seu telefone">
             </div>
           </div>
           <div class="col">
