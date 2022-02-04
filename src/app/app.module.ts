@@ -53,7 +53,7 @@ import { SocioDTOService } from './DTOs/Services/socio-dto.service';
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot()    
   ],
   providers: [LoginAutenticacaoService, HttpClientModule, CategoriaService,
   DependenteService, FuncionarioService, MensalidadesService, SocioService ],
