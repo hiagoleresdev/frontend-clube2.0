@@ -2,10 +2,12 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { conformToMask } from 'angular2-text-mask';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { stringify } from 'querystring';
 import { SocioService } from '../Domain/Services/socio.service';
 import { Socio } from '../Domain/Socio';
 import { SocioDTOService } from '../DTOs/Services/socio-dto.service';
 import { SocioDTO } from '../DTOs/SocioDTO';
+import { NgxMaskModule } from 'ngx-mask';
 
 @Component({
   selector: 'forms-cadastro-socio',
@@ -26,6 +28,7 @@ export class FormsCadastroSocioComponent implements OnInit {
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
 
+
   modalRef: BsModalRef;
 
   //máscaras
@@ -35,12 +38,15 @@ export class FormsCadastroSocioComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+
     this.socioService.PegarTodos().subscribe(resultados => {
 
       let socios = [];
 
       resultados.forEach((resultado)=>{
         console.log(resultado.id)
+
         socios.push(resultado)
 
       });
@@ -50,7 +56,9 @@ export class FormsCadastroSocioComponent implements OnInit {
 
     }
 
-
+    desmascarar(valor){
+      return valor.replace(/\D+/g, '');
+    }
 
     ExibirFormularioCadastro():void{
       this.visibilidadeTabela = false;
@@ -69,6 +77,8 @@ export class FormsCadastroSocioComponent implements OnInit {
         fkcategoria: new FormControl(null),
       });
     }
+
+
 
     ExibirFormularioAtualizacao(socioId){
       this.visibilidadeTabela = false;
@@ -101,10 +111,12 @@ export class FormsCadastroSocioComponent implements OnInit {
       const socio : SocioDTO = this.formulario.value;
       console.log(socio)
 
+
       if(socio.id > 0){
         this.sociosServiceDto.AtualizarSocio(socio).subscribe(resultado => {
           this.visibilidadeFormulario = false;
           this.visibilidadeTabela = true;
+
           alert('Socio atualizado com sucesso!');
 
           this.socioService.PegarTodos().subscribe(registros => {
@@ -123,12 +135,9 @@ export class FormsCadastroSocioComponent implements OnInit {
           })
         });
       }
-
-
     }
 
     ExibirConfirmacaoExclusao(socioId, nomeSocio, conteudoModal: TemplateRef<any>):void{
-
       this.modalRef = this.modalService.show(conteudoModal);
       this.socioId = socioId;
       this.nomeSocio = nomeSocio;

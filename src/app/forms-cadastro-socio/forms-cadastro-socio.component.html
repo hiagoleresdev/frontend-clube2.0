@@ -76,9 +76,15 @@
           <div class="col">
             <div class="form-group">
               <label>Telefone:</label>
-              <input type="text" [textMask]="{mask: maskTelefone}"  class="form-control form-control-sm" formControlName="telefone" placeholder="Digite seu telefone">
+              <input type="text"
+              [dropSpecialCharacters]="true"
+              mask= "(00)0000-0000"
+              class="form-control form-control-sm"
+              formControlName="telefone"
+              placeholder="Digite seu telefone" >
             </div>
           </div>
+          
           <div class="col">
             <div class="form-group">
               <label>Número cartão:</label>
@@ -136,9 +142,8 @@
         </div>
 
 
-
         <div class="container">
-          <div class="row">
+          <div class="row justify-content-end">
             <div>
               <button type="submit" class="btn btn-sm btn-success">Salvar</button>
             </div>
@@ -172,4 +177,7 @@
     </div>
   </ng-template>
 
+
   <animacao-ondas></animacao-ondas>
+
+
