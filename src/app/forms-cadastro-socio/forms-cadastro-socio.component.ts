@@ -11,131 +11,170 @@ import { SocioDTO } from '../DTOs/SocioDTO';
   templateUrl: './forms-cadastro-socio.component.html',
   styleUrls: ['./forms-cadastro-socio.component.css']
 })
-export class FormsCadastroSocioComponent implements OnInit {
-
+export class FormsCadastroSocioComponent implements OnInit 
+{
   constructor(private sociosServiceDto: SocioDTOService,
      private socioService: SocioService,
      private modalService: BsModalService) { }
 
+  titulo: string;
   formulario: any;
   nomeSocio: string;
   socioId: number;
-
   socios: Socio[];
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
-
   modalRef: BsModalRef;
 
-
-  ngOnInit(): void {
-
-    this.socioService.PegarTodos().subscribe(resultados => {
-
+  ngOnInit(): void 
+  {
+    this.socioService.PegarTodos().subscribe(resultados => 
+    {
       let socios = [];
 
-      resultados.forEach((resultado)=>{
-        console.log(resultado.id)
+      resultados.forEach((resultado)=>
+      {
         socios.push(resultado)
-
       });
 
       this.socios = socios
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na listagem")
     });
+  }
 
+  ExibirFormularioCadastro():void
+  {
+    this.visibilidadeTabela = false;
+    this.visibilidadeFormulario = true;
 
-    }
+    this.titulo = "Cadastro de sócio"
+    this.formulario = new FormGroup({
+      nome: new FormControl(null),
+      email: new FormControl(null),
+      numeroCartao: new FormControl(null),
+      telefone: new FormControl(null),
+      cep: new FormControl(null),
+      uf: new FormControl(null),
+      cidade: new FormControl(null),
+      bairro: new FormControl(null),
+      logradouro: new FormControl(null),
+      fkcategoria: new FormControl(null),
+    });
+  }
 
-    ExibirFormularioCadastro():void{
-      this.visibilidadeTabela = false;
-      this.visibilidadeFormulario = true;
+  ExibirFormularioAtualizacao(socioId)
+  {
+    this.visibilidadeTabela = false;
+    this.visibilidadeFormulario = true;
 
+    this.socioService.PegarPeloId(socioId).subscribe(resultado => 
+    {
+      this.titulo = `Atualizar sócio ${resultado.nome}`;
       this.formulario = new FormGroup({
-        nome: new FormControl(null),
-        email: new FormControl(null),
-        numeroCartao: new FormControl(null),
-        telefone: new FormControl(null),
-        cep: new FormControl(null),
-        uf: new FormControl(null),
-        cidade: new FormControl(null),
-        bairro: new FormControl(null),
-        logradouro: new FormControl(null),
-        fkcategoria: new FormControl(null),
+        id: new FormControl(resultado.id),
+        nome: new FormControl(resultado.nome),
+        email: new FormControl(resultado.email),
+        numeroCartao: new FormControl(resultado.numeroCartao),
+        telefone: new FormControl(resultado.telefone),
+        cep: new FormControl(resultado.cep),
+        uf: new FormControl(resultado.uf),
+        cidade: new FormControl(resultado.cidade),
+        bairro: new FormControl(resultado.bairro),
+        logradouro: new FormControl(resultado.logradouro),
+        fkcategoria: new FormControl(resultado.categoria.id)
       });
-    }
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na seleção")
+    });
+  }
 
-    ExibirFormularioAtualizacao(socioId){
-      this.visibilidadeTabela = false;
-      this.visibilidadeFormulario = true;
+  Voltar():void
+  {
+    this.visibilidadeTabela = true;
+    this.visibilidadeFormulario = false;
+  }
 
-      this.socioService.PegarPeloId(socioId).subscribe(resultado => {
-        this.formulario = new FormGroup({
-          id: new FormControl(resultado.id),
-          nome: new FormControl(resultado.nome),
-          email: new FormControl(resultado.email),
-          numeroCartao: new FormControl(resultado.numeroCartao),
-          telefone: new FormControl(resultado.telefone),
-          cep: new FormControl(resultado.cep),
-          uf: new FormControl(resultado.uf),
-          cidade: new FormControl(resultado.cidade),
-          bairro: new FormControl(resultado.bairro),
-          logradouro: new FormControl(resultado.logradouro),
-          fkcategoria: new FormControl(resultado.categoria.id)
-        });
-      });
-    }
+  EnviarSocio(): void 
+  {
+    const socio : SocioDTO = this.formulario.value;
 
+    if(socio.id > 0)
+    {
+      this.sociosServiceDto.AtualizarSocio(socio).subscribe(resultado => 
+      {
+        alert(resultado.body)
+        this.visibilidadeFormulario = false;
+        this.visibilidadeTabela = true;
 
-    Voltar():void{
-      this.visibilidadeTabela = true;
-      this.visibilidadeFormulario = false;
-    }
-
-    EnviarFormulario(): void {
-      const socio : SocioDTO = this.formulario.value;
-
-      if(socio.id > 0){
-        this.sociosServiceDto.AtualizarSocio(socio).subscribe(resultado => {
-          this.visibilidadeFormulario = false;
-          this.visibilidadeTabela = true;
-          alert('Socio atualizado com sucesso!');
-
-          this.socioService.PegarTodos().subscribe(registros => {
-            this.socios = registros;
-          })
-        });
-      }else{
-        this.sociosServiceDto.SalvarSocio(socio).subscribe(resultado => {
-          this.visibilidadeFormulario = false;
-          this.visibilidadeTabela = true;
-
-          alert('Socio inserido com sucesso!');
-
-          this.socioService.PegarTodos().subscribe(registros =>{
-            this.socios = registros;
-          })
-        });
-      }
-
-
-    }
-
-    ExibirConfirmacaoExclusao(socioId, nomeSocio, conteudoModal: TemplateRef<any>):void{
-
-      this.modalRef = this.modalService.show(conteudoModal);
-      this.socioId = socioId;
-      this.nomeSocio = nomeSocio;
-    }
-
-    ExcluirSocio(socioId){
-      console.log(socioId)
-      this.sociosServiceDto.ExcluirSocio(socioId).subscribe(resultado => {
-        this.modalRef.hide();
-        alert("Socio excluido com sucesso");
-        this.socioService.PegarTodos().subscribe(registros => {
+        this.socioService.PegarTodos().subscribe(registros => 
+        {
           this.socios = registros;
-        })
-      })
+        },
+        (erro) =>
+        {
+          alert("Ocorreu um erro na listagem")
+        });
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro na atualização do item")
+      });
     }
+    else
+    {
+      this.sociosServiceDto.SalvarSocio(socio).subscribe(resultado => 
+      {
+        alert(resultado.body)
+        this.visibilidadeFormulario = false;
+        this.visibilidadeTabela = true;
+
+        this.socioService.PegarTodos().subscribe(registros =>
+        {
+          this.socios = registros;
+        },
+        (erro) =>
+        {
+          alert("Ocorreu um erro na listagem")
+        });
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro no cadastro do item")
+      });
+    }
+  }
+
+  ExibirConfirmacaoExclusao(socioId, nomeSocio, conteudoModal: TemplateRef<any>):void
+  {
+    this.modalRef = this.modalService.show(conteudoModal);
+    this.socioId = socioId;
+    this.nomeSocio = nomeSocio;
+  }
+
+  ExcluirSocio(socioId)
+  {
+    this.sociosServiceDto.ExcluirSocio(socioId).subscribe(resultado => 
+    {
+      this.modalRef.hide();
+      alert(resultado.body)
+      this.socioService.PegarTodos().subscribe(registros => 
+      {
+        this.socios = registros;
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro na listagem")
+      });
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na exclusão do item")
+    });
+  }
 }
 

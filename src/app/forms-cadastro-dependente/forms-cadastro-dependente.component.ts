@@ -13,46 +13,46 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   templateUrl: './forms-cadastro-dependente.component.html',
   styleUrls: ['./forms-cadastro-dependente.component.css']
 })
-export class FormsCadastroDependenteComponent implements OnInit {
-
+export class FormsCadastroDependenteComponent implements OnInit 
+{
   constructor(private dependenteServiceDto: DependenteDTOService, private dependenteService: DependenteService,
           private modalService: BsModalService ) { }
 
+  titulo: string;
   formulario: any;
-
   nomeDependente: string;
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
   dependenteId: number;
   dependentes: Dependente[];
-
   modalRef: BsModalRef;
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
 
-    this.dependenteService.PegarTodos().subscribe(resultados =>{
-      console.log(resultados);
-
+    this.dependenteService.PegarTodos().subscribe(resultados =>
+    {
       let dependentes = [];
 
-      resultados.forEach((resultado)=>{
-        console.log(resultado.id)
+      resultados.forEach((resultado)=>
+      {
         dependentes.push(resultado)
-
       });
 
       this.dependentes = dependentes;
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na listagem")
     });
-
-
-
   }
 
-  ExibirFormularioCadastro() : void{
-
+  ExibirFormularioCadastro() : void
+  {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
+    this.titulo = "Cadastro de dependente"
     this.formulario = new FormGroup({
       nome: new FormControl(null),
       email: new FormControl(null),
@@ -62,14 +62,14 @@ export class FormsCadastroDependenteComponent implements OnInit {
     });
   }
 
-
-  ExibirFormularioAtualizacao(dependenteId):void{
+  ExibirFormularioAtualizacao(dependenteId):void
+  {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
-    this.dependenteService.PegarPeloId(dependenteId).subscribe(resultado => {
-
-
+    this.dependenteService.PegarPeloId(dependenteId).subscribe(resultado => 
+    {
+      this.titulo = `Atualizar dependente ${resultado.nome}`;
       this.formulario = new FormGroup({
         id: new FormControl(resultado.id),
         nome: new FormControl(resultado.nome),
@@ -78,59 +78,90 @@ export class FormsCadastroDependenteComponent implements OnInit {
         numeroCartao: new FormControl(resultado.numeroCartao),
         fkSocio: new FormControl(resultado.socio.id)
       });
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na seleção")
     });
   }
 
-
-  Voltar() : void {
+  Voltar() : void 
+  {
     this.visibilidadeFormulario = false;
     this.visibilidadeTabela = true;
   }
 
-  EnviarDependente(): void {
+  EnviarDependente(): void 
+  {
     const dependente : DependenteDTO = this.formulario.value;
 
-    if(dependente.id > 0){
-      this.dependenteServiceDto.AtualizarDependente(dependente).subscribe(resultado => {
+    if(dependente.id > 0)
+    {
+      this.dependenteServiceDto.AtualizarDependente(dependente).subscribe(resultado => 
+      {
+        alert(resultado.body);
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
-        alert('Dependente atualizada com sucesso!');
 
-        this.dependenteService.PegarTodos().subscribe(registros => {
+        this.dependenteService.PegarTodos().subscribe(registros => 
+        {
           this.dependentes = registros;
         })
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro na atualização do item")
       });
-    }else{
-      this.dependenteServiceDto.SalvarDependente(dependente).subscribe(resultado => {
-
+    }
+    else
+    {
+      this.dependenteServiceDto.SalvarDependente(dependente).subscribe(resultado => 
+      {
+        alert(resultado.body);
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
-        alert('Dependente inserido com sucesso!');
-
-        this.dependenteService.PegarTodos().subscribe(registros => {
+        this.dependenteService.PegarTodos().subscribe(registros => 
+        {
           this.dependentes = registros
-        })
+        },
+        (erro) =>
+        {
+          alert("Ocorreu um erro na listagem")
+        });
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro no cadastro do item")
       });
     }
-
   }
 
-  ExibirConfirmacaoExclusao(dependenteId, nomeDependente, conteudoModal: TemplateRef<any>):void{
-
+  ExibirConfirmacaoExclusao(dependenteId, nomeDependente, conteudoModal: TemplateRef<any>):void
+  {
     this.modalRef = this.modalService.show(conteudoModal);
     this.dependenteId = dependenteId;
     this.nomeDependente = nomeDependente;
   }
 
-  ExcluirDependente(dependenteId){
-    debugger;
-    this.dependenteServiceDto.ExcluirDependente(dependenteId).subscribe(resultado => {
+  ExcluirDependente(dependenteId)
+  {
+    this.dependenteServiceDto.ExcluirDependente(dependenteId).subscribe(resultado => 
+    {
       this.modalRef.hide();
-      alert("Dependente excluido com sucesso");
-      this.dependenteService.PegarTodos().subscribe(registros => {
+      alert(resultado.body);
+      this.dependenteService.PegarTodos().subscribe(registros => 
+      {
         this.dependentes = registros;
-      })
-    })
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro na listagem")
+      });
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na exclusão do item")
+    });
   }
 }

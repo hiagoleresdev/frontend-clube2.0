@@ -11,32 +11,39 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   templateUrl: './form-mensalidade.component.html',
   styleUrls: ['./form-mensalidade.component.css']
 })
-export class FormMensalidadeComponent implements OnInit {
+export class FormMensalidadeComponent implements OnInit 
+{
 
   constructor(private mensalidadeServiceDto: MensalidadeDTOService, private mensalidadeService: MensalidadesService,
     private modalService: BsModalService) { }
 
+  titulo: string;
   formulario: any;
   mensalidades: Mensalidade[];
   mensalidadeId: number;
   dataVencimento: string;
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
-
   modalRef: BsModalRef;
 
-  ngOnInit(): void {
-    this.mensalidadeService.PegarTodos().subscribe(resultado => {
+  ngOnInit(): void 
+  {
+    this.mensalidadeService.PegarTodos().subscribe(resultado => 
+    {
       this.mensalidades = resultado
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na listagem")
     });
   }
 
-
-
-  ExibirFormularioCadastro() : void {
+  ExibirFormularioCadastro() : void 
+  {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
+    this.titulo = "Cadastro de mensalidade"
     this.formulario = new FormGroup({
       dataVencimento: new FormControl(null),
       valorInicial: new FormControl(null),
@@ -48,11 +55,14 @@ export class FormMensalidadeComponent implements OnInit {
     });
   }
 
-  ExibirFormularioAtualizacao(mensalidadeId){
+  ExibirFormularioAtualizacao(mensalidadeId)
+  {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
-    this.mensalidadeService.PegarPeloId(mensalidadeId).subscribe(resultado => {
+    this.mensalidadeService.PegarPeloId(mensalidadeId).subscribe(resultado => 
+    {
+      this.titulo = `Atualizar mensalidade de ${resultado.dataVencimento.getMonth()}`;
       this.formulario = new FormGroup({
         id: new FormControl(resultado.id),
         dataVencimento: new FormControl(resultado.dataVencimento),
@@ -63,59 +73,95 @@ export class FormMensalidadeComponent implements OnInit {
         quitada: new FormControl(resultado.quitada),
         fkSocio: new FormControl(resultado.socio.id)
       });
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na seleção")
     });
   }
 
-  Voltar() : void{
+  Voltar() : void
+  {
     this.visibilidadeTabela = true;
     this.visibilidadeFormulario = false;
   }
 
-  EnviarMensalidade(): void {
+  EnviarMensalidade(): void 
+  {
     const mensalidade : MensalidadeDTO = this.formulario.value;
 
-    if(mensalidade.id > 0){
-      this.mensalidadeServiceDto.AtualizarMensalidade(mensalidade).subscribe(resultado => {
+    if(mensalidade.id > 0)
+    {
+      this.mensalidadeServiceDto.AtualizarMensalidade(mensalidade).subscribe(resultado => 
+      {
+        alert(resultado.message)
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
-        alert('Mensalidade atualizado com sucesso!');
 
-        this.mensalidadeService.PegarTodos().subscribe(registros => {
+        this.mensalidadeService.PegarTodos().subscribe(registros => 
+        {
           this.mensalidades = registros;
-        })
+        },
+        (erro) =>
+        {
+          alert("Ocorreu um erro na listagem")
+        });
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro na atualização do item")
       });
-    }else{
-
-    this.mensalidadeServiceDto.SalvarMensalidade(mensalidade).subscribe(resultado => {
-      this.visibilidadeFormulario = false;
-      this.visibilidadeTabela = true;
-
-      alert('Mensalidade inserida com sucesso!');
-
-      this.mensalidadeService.PegarTodos().subscribe(registros =>{
-        this.mensalidades = registros;
-      });
-    });
     }
+    else
+    {
+      this.mensalidadeServiceDto.SalvarMensalidade(mensalidade).subscribe(resultado => 
+      {
+        alert(resultado.message)
+        this.visibilidadeFormulario = false;
+        this.visibilidadeTabela = true;
 
-
+        this.mensalidadeService.PegarTodos().subscribe(registros =>
+        {
+          this.mensalidades = registros;
+        },
+        (erro) =>
+        {
+          alert("Ocorreu um erro na listagem")
+        });
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro no cadastro do item")
+      });
+    }
   }
 
-  ExibirConfirmacaoExclusao(mensalidadeId, dataVencimento, conteudoModal: TemplateRef<any>):void{
-
+  ExibirConfirmacaoExclusao(mensalidadeId, dataVencimento, conteudoModal: TemplateRef<any>):void
+  {
     this.modalRef = this.modalService.show(conteudoModal);
     this.mensalidadeId = mensalidadeId;
     this.dataVencimento = dataVencimento;
   }
 
-  ExcluirMensalidade(mensalidadeId){
+  ExcluirMensalidade(mensalidadeId)
+  {
     console.log(mensalidadeId)
-    this.mensalidadeServiceDto.ExcluirMensalidade(mensalidadeId).subscribe(resultado => {
+    this.mensalidadeServiceDto.ExcluirMensalidade(mensalidadeId).subscribe(resultado => 
+    {
       this.modalRef.hide();
-      alert("Mensalidade excluida com sucesso");
-      this.mensalidadeService.PegarTodos().subscribe(registros => {
+      alert(resultado.body)
+      this.mensalidadeService.PegarTodos().subscribe(registros => 
+      {
         this.mensalidades = registros;
-      })
-    })
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro na listagem")
+      });
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na exclusão do item")
+    });
   }
 }

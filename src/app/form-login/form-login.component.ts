@@ -12,9 +12,8 @@ import { FormGroup } from '@angular/forms';
 export class FormLoginComponent implements OnInit 
 {
 
- usuario: Usuario = new Usuario();
+  usuario: Usuario = new Usuario();
 
-  groupLogin: FormGroup;
   constructor(private loginAutenticacaoService: LoginAutenticacaoService) {}
 
   ngOnInit(): void { }

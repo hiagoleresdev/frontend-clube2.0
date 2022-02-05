@@ -12,122 +12,178 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   templateUrl: './form-categoria.component.html',
   styleUrls: ['./form-categoria.component.css']
 })
-export class FormCategoriaComponent implements OnInit {
+export class FormCategoriaComponent implements OnInit
+{
 
   constructor(private categoriasServiceDto: CategoriaDTOService, private categoriaService: CategoriaService,
     private modalService: BsModalService) {}
 
-
   titulo : string
   formulario: any;
-  tipoCategoria: string;
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
   idCategoria: number;
-
+  tipoCategoria: string;
   categorias: Categoria[];
   modalRef: BsModalRef;
 
-  ngOnInit(): void {
-
-
-    this.categoriaService.PegarTodos().subscribe(resultados =>{
-      console.log(resultados);
+  ngOnInit(): void 
+  {
+    this.categoriaService.PegarTodos().subscribe((resultados) =>
+    {
 
       let categorias = [];
 
-      resultados.forEach((resultado)=>{
-        console.log(resultado.id)
+      resultados.forEach((resultado)=>
+      {
         categorias.push(resultado)
-
       });
 
       this.categorias = categorias;
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na listagem")
     });
-
   }
 
-  ExibirFormularioCadastro(){
+  ExibirFormularioCadastro()
+  {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
+    this.titulo = "Cadastro de categoria"
     this.formulario = new FormGroup({
       tipo: new FormControl(null),
       meses: new FormControl(null)
     });
   }
 
-
-  ExibirFormularioAtualizacao(idCategoria):void{
+  ExibirFormularioAtualizacao(idCategoria):void
+  {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
-    this.categoriaService.PegarPeloId(idCategoria).subscribe(resultado => {
-
-     this.titulo = `Atualizar ${resultado.tipo}`;
+    this.categoriaService.PegarPeloId(idCategoria).subscribe((resultado) => 
+    {
+      this.titulo = `Atualizar categoria ${resultado.tipo}`;
 
       this.formulario = new FormGroup({
         id: new FormControl(resultado.id),
         tipo: new FormControl(resultado.tipo),
         meses: new FormControl(resultado.meses)
       });
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na seleção")
     });
   }
 
-
-  EnviarCategoria(): void {
+  EnviarCategoria(): void 
+  {
     const categoria : CategoriaDTO = this.formulario.value;
 
-    if(categoria.id > 0){
-
-      this.categoriasServiceDto.AtualizarCategoria(categoria).subscribe(resultado => {
-        this.visibilidadeFormulario = false;
+    if(categoria.id > 0)
+    {
+      this.categoriasServiceDto.AtualizarCategoria(categoria).subscribe((resultado) => 
+      {
+        alert(resultado.message)
         this.visibilidadeTabela = true;
-        alert('Categoria atualizada com sucesso!');
-
-        this.categoriaService.PegarTodos().subscribe(registros => {
-          this.categorias = registros;
-        })
-      });
-    }else{
-
-      this.categoriasServiceDto.SalvarCategoria(categoria).subscribe(resultado => {
         this.visibilidadeFormulario = false;
-        this.visibilidadeTabela = true;
-        alert('Categoria inserida com sucesso!');
-
-        this.categoriaService.PegarTodos().subscribe(registros => {
-          this.categorias = registros;
-        })
+        this.categoriaService.PegarTodos().subscribe((resultados) => 
+        {
+          let categorias = [];
+    
+          resultados.forEach((resultado)=>
+          {
+            categorias.push(resultado)  
+          });
+    
+          this.categorias = categorias;
+        },
+        (erro) =>
+        {
+          alert("Ocorreu um erro na listagem")
+        });
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro na atualização do item")
       });
     }
+    else
+    {
 
-
+      this.categoriasServiceDto.SalvarCategoria(categoria).subscribe((resultado) => 
+      {
+        alert(resultado.message);
+        this.visibilidadeTabela = true;
+        this.visibilidadeFormulario = false;
+        this.categoriaService.PegarTodos().subscribe((resultados) => 
+        {
+          let categorias = [];
+    
+          resultados.forEach((resultado)=>
+          {
+            categorias.push(resultado)
+    
+          });
+    
+          this.categorias = categorias;
+        },
+        (erro) =>
+        {
+          alert("Ocorreu um erro na listagem")
+        });
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro no cadastro do item")
+      });
+    }
   }
 
-  voltar() : void{
+  voltar() : void
+  {
     this.visibilidadeTabela = true;
     this.visibilidadeFormulario = false;
   }
 
-
-  ExibirConfirmacaoExclusao(idCategoria,tipoCategoria,conteudoModal: TemplateRef<any>): void{
+  ExibirConfirmacaoExclusao(idCategoria,tipoCategoria,conteudoModal: TemplateRef<any>): void
+  {
     this.modalRef = this.modalService.show(conteudoModal);
     this.idCategoria = idCategoria;
     this.tipoCategoria = tipoCategoria;
   }
 
-  ExcluirCategoria(idCategoria){
-    console.log(idCategoria)
-      this.categoriasServiceDto.ExcluirCategoria(idCategoria).subscribe(resultado => {
-        this.modalRef.hide();
-        alert("Categoria excluida com sucesso");
-        this.categoriaService.PegarTodos().subscribe(registros => {
-          this.categorias = registros;
-        })
-      })
+  ExcluirCategoria(idCategoria)
+  {
+    this.categoriasServiceDto.ExcluirCategoria(idCategoria).subscribe((resultado) => 
+    {
+      this.modalRef.hide();
+      alert(resultado.message);
+      this.visibilidadeTabela = false;
+      this.visibilidadeTabela = true;
+      this.categoriaService.PegarTodos().subscribe((resultados) => 
+      {
+        let categorias = [];
+  
+        resultados.forEach((resultado)=>
+        {
+          categorias.push(resultado)
+        });
+  
+        this.categorias = categorias;
+      },
+      (erro) =>
+      {
+        alert("Ocorreu um erro na listagem")
+      });
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na exclusão do item")
+    });
   }
-
-
 }
-

@@ -17,34 +17,19 @@ export class LoginAutenticacaoService {
   fazerLogin(usuario: Usuario)
   {
 
-    this.funcionarioService.ValidarFuncionario(usuario.Usuario, usuario.Senha).subscribe(response => 
+    this.funcionarioService.ValidarFuncionario(usuario.Usuario, usuario.Senha).subscribe((response) => 
     {
-      if(response.status == 200)
-      {
-        this.usuarioAutenticado = true;
-
-        this.mostrarMenuEmitter.emit(true);
-
-        alert(response.body);
-
-        this.router.navigate(["/home"]);
-      }
-      else if(response.status == 404)
-      {
-        this.usuarioAutenticado = false;
-
-        this.mostrarMenuEmitter.emit(false);
-        
-        alert(response.body);
-      }
-      else
-      {
-        this.usuarioAutenticado = false;
-
-        this.mostrarMenuEmitter.emit(false);
-
-        alert(response.body)
-      }
-    })
+      alert(response.body.message);
+      this.usuarioAutenticado = true;
+      this.mostrarMenuEmitter.emit(true);
+      this.router.navigate(["/home"]);
+    },
+    (erro) =>
+    {
+      alert("O usuário informado não existe");
+      this.usuarioAutenticado = false;
+      this.mostrarMenuEmitter.emit(false);
+    }
+    )
   }
 }
