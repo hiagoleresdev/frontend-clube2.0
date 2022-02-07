@@ -1,7 +1,7 @@
 import { Usuario } from './usuario';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FuncionarioService } from '../Domain/Services/funcionario.service';
+import { FuncionarioService } from '../../Domain/Services/funcionario.service';
 
 @Injectable({
   providedIn: 'root'

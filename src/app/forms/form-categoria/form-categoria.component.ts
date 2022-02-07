@@ -1,10 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 
 import { FormControl, FormGroup } from '@angular/forms';
-import { CategoriaDTO } from '../DTOs/CategoriaDTO';
-import { CategoriaService } from '../Domain/Services/categoria.service';
-import { CategoriaDTOService } from '../DTOs/Services/categoria-dto.service';
-import { Categoria } from '../Domain/Categoria';
+import { CategoriaDTO } from 'src/app/DTOs/CategoriaDTO';
+import { CategoriaDTOService } from 'src/app/DTOs/Services/categoria-dto.service';
+import { CategoriaService } from 'src/app/Domain/Services/categoria.service';
+import { Categoria } from 'src/app/Domain/Categoria';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -74,7 +74,6 @@ export class FormCategoriaComponent implements OnInit {
     });
   }
 
-
   EnviarCategoria(): void {
     const categoria : CategoriaDTO = this.formulario.value;
 
@@ -101,8 +100,6 @@ export class FormCategoriaComponent implements OnInit {
         })
       });
     }
-
-
   }
 
   voltar() : void{

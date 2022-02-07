@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Mensalidade } from '../Domain/Mensalidade';
+import { Mensalidade } from '../../Domain/Mensalidade';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MensalidadeDTO } from '../DTOs/MensalidadeDTO';
-import { MensalidadesService } from '../Domain/Services/mensalidades.service';
-import { MensalidadeDTOService } from '../DTOs/Services/mensalidade-dto.service';
+import { MensalidadeDTO } from '../../DTOs/MensalidadeDTO';
+import { MensalidadesService } from '../../Domain/Services/mensalidades.service';
+import { MensalidadeDTOService } from '../../DTOs/Services/mensalidade-dto.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({

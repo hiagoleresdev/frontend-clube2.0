@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Dependente } from '../Domain/Dependente'
-import { DependenteDTO } from '../DTOs/DependenteDTO';
-import { DependenteDTOService } from '../DTOs/Services/dependente-dto.service';
-import { DependenteService } from '../Domain/Services/dependente.service';
+import { Dependente } from '../../Domain/Dependente'
+import { DependenteDTO } from '../../DTOs/DependenteDTO';
+import { DependenteDTOService } from '../../DTOs/Services/dependente-dto.service';
+import { DependenteService } from '../../Domain/Services/dependente.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginAutenticacaoService } from './form-login/login-autenticacao.service';
+import { LoginAutenticacaoService } from './forms/form-login/login-autenticacao.service';
 
 @Component({
   selector: 'app-root',

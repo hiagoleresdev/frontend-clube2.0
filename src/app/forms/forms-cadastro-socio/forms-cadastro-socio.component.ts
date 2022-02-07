@@ -3,10 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { conformToMask } from 'angular2-text-mask';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { stringify } from 'querystring';
-import { SocioService } from '../Domain/Services/socio.service';
-import { Socio } from '../Domain/Socio';
-import { SocioDTOService } from '../DTOs/Services/socio-dto.service';
-import { SocioDTO } from '../DTOs/SocioDTO';
+import { SocioService } from '../../Domain/Services/socio.service';
+import { Socio } from '../../Domain/Socio';
+import { SocioDTOService } from '../../DTOs/Services/socio-dto.service';
+import { SocioDTO } from '../../DTOs/SocioDTO';
 import { NgxMaskModule } from 'ngx-mask';
 
 @Component({
@@ -31,14 +31,8 @@ export class FormsCadastroSocioComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  //máscaras
-  maskTelefone =['(', /[1-9]/, /\d/,')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/,'-', /\d/, /\d/, /\d/, /\d/]
-  maskCep = [' ', /\d/, /\d/, /\d/,/\d/,/\d/, '-', /\d/, /\d/, /\d/]
-
 
   ngOnInit(): void {
-
-
 
     this.socioService.PegarTodos().subscribe(resultados => {
 
@@ -51,14 +45,12 @@ export class FormsCadastroSocioComponent implements OnInit {
 
       });
 
+      this.socios = socios;
     });
 
 
     }
 
-    desmascarar(valor){
-      return valor.replace(/\D+/g, '');
-    }
 
     ExibirFormularioCadastro():void{
       this.visibilidadeTabela = false;
@@ -77,8 +69,6 @@ export class FormsCadastroSocioComponent implements OnInit {
         fkcategoria: new FormControl(null),
       });
     }
-
-
 
     ExibirFormularioAtualizacao(socioId){
       this.visibilidadeTabela = false;
