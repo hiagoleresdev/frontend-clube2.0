@@ -137,11 +137,13 @@
            class="form-control form-control-sm" formControlName="cep" placeholder="Digite seu cep">
         </div>
 
-        <div class="form-group">
-          <label>Categoria:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="fkcategoria">
-        </div>
+        <!-- Combo box categoria -->
+        <label>SELECIONE O ID DA CATEGORIA: </label>
 
+        <select name="form-control form-control-sm" id="categorias" formControlName="fkcategoria">
+          <option value="" disabled selected>Selecione uma categoria</option>
+          <option *ngFor="let categoria of categorias" [ngValue]="categoria.id">{{categoria.tipo}}</option>
+        </select>
 
         <div class="container">
           <div class="row justify-content-end">

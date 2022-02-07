@@ -9,6 +9,9 @@ import { SocioDTOService } from '../../DTOs/Services/socio-dto.service';
 import { SocioDTO } from '../../DTOs/SocioDTO';
 import { NgxMaskModule } from 'ngx-mask';
 
+import { Categoria } from 'src/app/Domain/Categoria';
+import { CategoriaService } from 'src/app/Domain/Services/categoria.service';
+
 @Component({
   selector: 'forms-cadastro-socio',
   templateUrl: './forms-cadastro-socio.component.html',
@@ -18,6 +21,7 @@ export class FormsCadastroSocioComponent implements OnInit {
 
   constructor(private sociosServiceDto: SocioDTOService,
      private socioService: SocioService,
+     private categoriaService: CategoriaService,
      private modalService: BsModalService) { }
 
   formulario: any;
@@ -25,6 +29,7 @@ export class FormsCadastroSocioComponent implements OnInit {
   socioId: number;
 
   socios: Socio[];
+  categorias: Categoria[];
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
 
@@ -48,6 +53,17 @@ export class FormsCadastroSocioComponent implements OnInit {
       this.socios = socios;
     });
 
+    this.categoriaService.PegarTodos().subscribe(resultados =>{
+      console.log(resultados);
+
+      let categorias = [];
+
+      resultados.forEach((resultado)=>{
+        categorias.push(resultado)
+      });
+
+      this.categorias = categorias;
+    });
 
     }
 

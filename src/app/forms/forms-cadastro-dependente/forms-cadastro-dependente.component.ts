@@ -5,6 +5,8 @@ import { DependenteDTOService } from '../../DTOs/Services/dependente-dto.service
 import { DependenteService } from '../../Domain/Services/dependente.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Socio } from 'src/app/Domain/Socio';
+import { SocioService } from 'src/app/Domain/Services/socio.service';
 
 
 
@@ -15,7 +17,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 })
 export class FormsCadastroDependenteComponent implements OnInit {
 
-  constructor(private dependenteServiceDto: DependenteDTOService, private dependenteService: DependenteService,
+  constructor(private dependenteServiceDto: DependenteDTOService,
+          private socioService: SocioService,
+          private dependenteService: DependenteService,
           private modalService: BsModalService ) { }
 
   formulario: any;
@@ -24,7 +28,9 @@ export class FormsCadastroDependenteComponent implements OnInit {
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
   dependenteId: number;
+
   dependentes: Dependente[];
+  socios: Socio[];
 
   modalRef: BsModalRef;
 
@@ -44,6 +50,19 @@ export class FormsCadastroDependenteComponent implements OnInit {
       this.dependentes = dependentes;
     });
 
+    this.socioService.PegarTodos().subscribe(resultados => {
+
+      let socios = [];
+
+      resultados.forEach((resultado)=>{
+        console.log(resultado.id)
+
+        socios.push(resultado)
+
+      });
+
+      this.socios = socios;
+    });
 
 
   }
