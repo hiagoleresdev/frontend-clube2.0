@@ -132,7 +132,7 @@ export class FormsCadastroDependenteComponent implements OnInit
       },
       (erro) =>
       {
-        alert("Ocorreu um erro no cadastro do item")
+        alert("O dependente informado já consta na base de dados")
       });
     }
   }

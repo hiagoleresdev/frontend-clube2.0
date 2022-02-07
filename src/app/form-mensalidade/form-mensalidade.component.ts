@@ -131,7 +131,7 @@ export class FormMensalidadeComponent implements OnInit
       },
       (erro) =>
       {
-        alert("Ocorreu um erro no cadastro do item")
+        alert("A mensalidade informada já consta na base de dados")
       });
     }
   }

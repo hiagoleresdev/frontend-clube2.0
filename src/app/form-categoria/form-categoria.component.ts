@@ -139,7 +139,7 @@ export class FormCategoriaComponent implements OnInit
       },
       (erro) =>
       {
-        alert("Ocorreu um erro no cadastro do item")
+        alert("A categoria informada já consta na base de dados")
       });
     }
   }

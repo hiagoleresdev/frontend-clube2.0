@@ -72,7 +72,7 @@ export class FormsCadastroSocioComponent implements OnInit
 
     this.socioService.PegarPeloId(socioId).subscribe(resultado => 
     {
-      this.titulo = `Atualizar sócio ${resultado.nome}`;
+      this.titulo = `Atualizar sócio(a) ${resultado.nome}`;
       this.formulario = new FormGroup({
         id: new FormControl(resultado.id),
         nome: new FormControl(resultado.nome),
@@ -144,7 +144,7 @@ export class FormsCadastroSocioComponent implements OnInit
       },
       (erro) =>
       {
-        alert("Ocorreu um erro no cadastro do item")
+        alert("O(A) sócio(a) infromado(a) já consta na base de dados")
       });
     }
   }
