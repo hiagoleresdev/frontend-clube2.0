@@ -27,4 +27,64 @@ h5{
     margin-right: 40px;
     
  }
+
+   /* media query */
+@media (max-width: 1200px) {
+    h5{        
+        padding-right: 0px;
+        text-align: justify;
+        margin-right: 30px;
+    
+        
+     }
+    p{
+         padding-left: 31px;
+         margin-top: 200px;
+        
+     }
+}
+
+@media(max-width: 770px){
+    img{
+        height: auto;
+        
+    }
+    h5{
+        font-size: 32px;
+        text-align: center;
+    }
+    p{
+        margin-top: 250px;
+    }
+}
+
+@media (max-width: 435px){
+    h3{
+        font-size: 37px;
+    }
+    h5{
+        font-size: 25px;
+    }
+    p{
+        margin-top: 200px;
+    }
+}
+
+@media (max-width: 300px){
+    h3{
+        font-size: 32px;
+    }
+    h5{
+        font-size: 22px;
+    }
+    p{
+        margin-top: 200px;
+        font-size: 15px;
+    }
+}
+
+.col{
+    flex: 1;
+}
  
+
