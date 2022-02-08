@@ -20,3 +20,18 @@
   #nav-color {
     background-image: linear-gradient(to right, #0477BF, #5CE3F2);
   }
+
+  
+
+ @media (max-width: 345px){
+   img{
+     width: 60px;
+     height: 35px;
+   }
+   .navbar-brand{
+     font-size: 12px;
+   }
+   .container-fluid{
+     margin: auto;
+   }
+}
