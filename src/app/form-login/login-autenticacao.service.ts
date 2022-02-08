@@ -17,17 +17,19 @@ export class LoginAutenticacaoService {
   fazerLogin(usuario: Usuario)
   {
 
-     if(this.funcionarioService.ValidarFuncionario(usuario.nome, usuario.senha)){
-
-       this.usuarioAutenticado = true;
-
-       this.mostrarMenuEmitter.emit(true);
-
-       this.router.navigate(["/home"]);
-     } else {
-       this.usuarioAutenticado = false;
-
-       this.mostrarMenuEmitter.emit(false);
-     }
-}
+    this.funcionarioService.ValidarFuncionario(usuario.Usuario, usuario.Senha).subscribe((response) => 
+    {
+      alert(response.body.message);
+      this.usuarioAutenticado = true;
+      this.mostrarMenuEmitter.emit(true);
+      this.router.navigate(["/home"]);
+    },
+    (erro) =>
+    {
+      alert("O usuário informado não existe");
+      this.usuarioAutenticado = false;
+      this.mostrarMenuEmitter.emit(false);
+    }
+    )
+  }
 }

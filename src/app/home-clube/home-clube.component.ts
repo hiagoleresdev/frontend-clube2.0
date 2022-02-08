@@ -7,19 +7,18 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home-clube.component.css'],
   providers: [ NgbCarouselConfig]
 })
-export class HomeClubeComponent implements OnInit {
+export class HomeClubeComponent implements OnInit 
+{
 
   //imagens = ["../../assets/imagens/img1.jpg", "../../assets/imagens/img2.jpg", "../../assets/imagens/img4.jpg"];
   
-  constructor(config: NgbCarouselConfig) {
+  constructor(config: NgbCarouselConfig) 
+  {
     config.interval = 2000;
     config.wrap = true;
     config.keyboard = false;
     config.pauseOnHover = false;
-   }
-
-  ngOnInit(): void {
   }
 
-  
+  ngOnInit(): void { }  
 }

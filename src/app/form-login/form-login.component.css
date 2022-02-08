@@ -1,7 +1,9 @@
-.ng-invalid.ng-touched:not(form) {
+.ng-invalid.ng-touched:not(form) 
+{
     border: 1px solid red;
 }
 
-h5{
+h5
+{
     margin-top: 10px;
 }

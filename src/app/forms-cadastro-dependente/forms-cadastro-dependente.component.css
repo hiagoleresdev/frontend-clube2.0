@@ -1,6 +1,30 @@
-.espacamento-btn{
+.espacamento-btn
+{
     margin-left: 10px;
 }
-h5 {
-    margin-top: 10px;
+
+.mensagem
+{
+    margin-top: 100px;
 }
+
+h5 
+{
+    margin-top: 10px;
+    color: #4988bf;
+}
+
+.icone
+{
+    display: block;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bi
+{
+    color: #4988bf;
+    font-size: 100px;
+}
+

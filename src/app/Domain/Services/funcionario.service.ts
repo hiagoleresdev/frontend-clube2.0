@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { Funcionario } from '../Funcionario';
 
 const httpOptions = {
@@ -12,19 +12,20 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class FuncionarioService{
-  url= 'https://localhost:7156/api/Mensalidade';
+export class FuncionarioService
+{
+  url= 'https://localhost:7156/api/Funcionario';
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   PegarPeloId(funcionarioid: number): Observable<Funcionario>{
     const apiUrl = `${this.url}/${funcionarioid}`;
     return this.http.get<Funcionario>(apiUrl);
   }
 
-  ValidarFuncionario(usuario: string, senha: string) : Observable<any>{
+  ValidarFuncionario(usuario: string, senha: string) : Observable<any>
+  {
     const apiUrl = `${this.url}/${usuario}/${senha}`;
-    return this.http.get(apiUrl, {responseType: "text", observe: 'response'});
+    return this.http.get(apiUrl, {observe: 'response'})
   }
-
 }
