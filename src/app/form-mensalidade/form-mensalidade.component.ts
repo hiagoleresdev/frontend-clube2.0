@@ -94,7 +94,7 @@ export class FormMensalidadeComponent implements OnInit
     {
       this.mensalidadeServiceDto.AtualizarMensalidade(mensalidade).subscribe(resultado => 
       {
-        alert(resultado.message)
+        alert(resultado.body.message)
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
@@ -116,7 +116,7 @@ export class FormMensalidadeComponent implements OnInit
     {
       this.mensalidadeServiceDto.SalvarMensalidade(mensalidade).subscribe(resultado => 
       {
-        alert(resultado.message)
+        alert(resultado.body.message)
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
@@ -149,7 +149,7 @@ export class FormMensalidadeComponent implements OnInit
     this.mensalidadeServiceDto.ExcluirMensalidade(mensalidadeId).subscribe(resultado => 
     {
       this.modalRef.hide();
-      alert(resultado.body)
+      alert(resultado.body.message)
       this.mensalidadeService.PegarTodos().subscribe(registros => 
       {
         this.mensalidades = registros;

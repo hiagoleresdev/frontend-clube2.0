@@ -99,7 +99,7 @@ export class FormsCadastroDependenteComponent implements OnInit
     {
       this.dependenteServiceDto.AtualizarDependente(dependente).subscribe(resultado => 
       {
-        alert(resultado.body);
+        alert(resultado.body.message);
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
@@ -117,7 +117,7 @@ export class FormsCadastroDependenteComponent implements OnInit
     {
       this.dependenteServiceDto.SalvarDependente(dependente).subscribe(resultado => 
       {
-        alert(resultado.body);
+        alert(resultado.body.message);
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
@@ -149,7 +149,7 @@ export class FormsCadastroDependenteComponent implements OnInit
     this.dependenteServiceDto.ExcluirDependente(dependenteId).subscribe(resultado => 
     {
       this.modalRef.hide();
-      alert(resultado.body);
+      alert(resultado.body.message);
       this.dependenteService.PegarTodos().subscribe(registros => 
       {
         this.dependentes = registros;
