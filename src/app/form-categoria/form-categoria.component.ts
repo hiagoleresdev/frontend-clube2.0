@@ -88,7 +88,7 @@ export class FormCategoriaComponent implements OnInit
     {
       this.categoriasServiceDto.AtualizarCategoria(categoria).subscribe((resultado) => 
       {
-        alert(resultado.message)
+        alert(resultado.body.message)
         this.visibilidadeTabela = true;
         this.visibilidadeFormulario = false;
         this.categoriaService.PegarTodos().subscribe((resultados) => 
@@ -117,7 +117,7 @@ export class FormCategoriaComponent implements OnInit
 
       this.categoriasServiceDto.SalvarCategoria(categoria).subscribe((resultado) => 
       {
-        alert(resultado.message);
+        alert(resultado.body.message);
         this.visibilidadeTabela = true;
         this.visibilidadeFormulario = false;
         this.categoriaService.PegarTodos().subscribe((resultados) => 
@@ -162,7 +162,7 @@ export class FormCategoriaComponent implements OnInit
     this.categoriasServiceDto.ExcluirCategoria(idCategoria).subscribe((resultado) => 
     {
       this.modalRef.hide();
-      alert(resultado.message);
+      alert(resultado.body.message);
       this.visibilidadeTabela = false;
       this.visibilidadeTabela = true;
       this.categoriaService.PegarTodos().subscribe((resultados) => 
