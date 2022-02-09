@@ -107,7 +107,7 @@ export class FormsCadastroSocioComponent implements OnInit
     {
       this.sociosServiceDto.AtualizarSocio(socio).subscribe(resultado => 
       {
-        alert(resultado.body)
+        alert(resultado.body.message)
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
