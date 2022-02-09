@@ -1,7 +1,8 @@
+<navbar-clube></navbar-clube>
 <div class="container p-5" *ngIf="visibilidadeTabela">
   <div class="border border-light rounded p-5">
     <div>
-      <button type="button" class="btn btn-dark btnAdicionar" (click)="ExibirFormularioCadastro()">
+      <button type="button" id="btn-NovaCategoria"class="btn btn-dark btnAdicionar" (click)="ExibirFormularioCadastro()">
         Nova categoria
       </button>
     </div>
@@ -28,8 +29,8 @@
           <td>{{categoria.tipo}}</td>
           <td>{{categoria.meses}}</td>
           <td>
-            <button type="button" class="btn btn-success" style="margin-right: 20px;" (click)="ExibirFormularioAtualizacao(categoria.id)">Atualizar</button>
-            <button type="button" class="btn btn-danger" (click)="ExibirConfirmacaoExclusao(categoria.id, categoria.tipo, conteudoModal)">Excluir</button>
+            <button type="button" id="btn-atualizar" class="btn btn-success btn-sm" style="margin-right: 20px;" (click)="ExibirFormularioAtualizacao(categoria.id)">Atualizar</button>
+            <button type="button" id="btn-excluir"class="btn btn-danger btn-sm" (click)="ExibirConfirmacaoExclusao(categoria.id, categoria.tipo, conteudoModal)">Excluir</button>
           </td>
         </tr>
       </table>
@@ -85,4 +86,3 @@
   </div>
 </ng-template>
 
-<animacao-ondas></animacao-ondas>

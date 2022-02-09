@@ -27,3 +27,45 @@ h5
     color: #4988bf;
     font-size: 100px;
 }
+
+@media(max-width: 525px)
+{
+    #btn-atualizar{
+        font-size: 0.65em;
+    }
+    #btn-excluir{
+        font-size: 0.65em;
+    }
+}
+
+@media(max-width: 498px)
+{
+    #btn-atualizar{
+        font-size: 0.41em;
+    }
+    #btn-excluir{
+        font-size: 0.41em;
+    }
+}
+
+@media(max-width: 470px)
+{
+    #btn-atualizar{        
+        margin-bottom: 5px;
+        margin-left: 2px;
+    } 
+    #btn-excluir{
+        margin-left:  5px;
+    }   
+}
+
+@media (max-width: 330px){
+    #btn-NovaCategoria{
+        font-size: 0.75em;
+    }
+}
+@media (max-width: 290px){
+    #btn-NovaCategoria{
+        font-size: 0.5em;
+    }
+}

@@ -5,6 +5,16 @@ main
   background-color: #00ac96;
 }
 
+body{
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
 .content
 {
   background-color: #00ac96;
