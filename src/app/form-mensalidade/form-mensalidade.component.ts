@@ -5,30 +5,35 @@ import { MensalidadeDTO } from '../DTOs/MensalidadeDTO';
 import { MensalidadesService } from '../Domain/Services/mensalidades.service';
 import { MensalidadeDTOService } from '../DTOs/Services/mensalidade-dto.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { SocioService } from '../Domain/Services/socio.service';
+import { Socio } from '../Domain/Socio';
 
 @Component({
   selector: 'form-mensalidade',
   templateUrl: './form-mensalidade.component.html',
   styleUrls: ['./form-mensalidade.component.css']
 })
-export class FormMensalidadeComponent implements OnInit 
+export class FormMensalidadeComponent implements OnInit
 {
 
-  constructor(private mensalidadeServiceDto: MensalidadeDTOService, private mensalidadeService: MensalidadesService,
+  constructor(private mensalidadeServiceDto: MensalidadeDTOService,
+    private mensalidadeService: MensalidadesService,
+    private socioService: SocioService,
     private modalService: BsModalService) { }
 
   titulo: string;
   formulario: any;
   mensalidades: Mensalidade[];
+  socios: Socio[];
   mensalidadeId: number;
   dataVencimento: string;
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
   modalRef: BsModalRef;
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
-    this.mensalidadeService.PegarTodos().subscribe(resultado => 
+    this.mensalidadeService.PegarTodos().subscribe(resultado =>
     {
       this.mensalidades = resultado
     },
@@ -36,9 +41,24 @@ export class FormMensalidadeComponent implements OnInit
     {
       alert("Ocorreu um erro na listagem")
     });
+
+    this.socioService.PegarTodos().subscribe(resultados => {
+
+      let socios = [];
+
+      resultados.forEach((resultado)=>{
+        console.log(resultado.id)
+
+        socios.push(resultado)
+
+      });
+
+      this.socios = socios;
+    });
+
   }
 
-  ExibirFormularioCadastro() : void 
+  ExibirFormularioCadastro() : void
   {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
@@ -60,7 +80,7 @@ export class FormMensalidadeComponent implements OnInit
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
-    this.mensalidadeService.PegarPeloId(mensalidadeId).subscribe(resultado => 
+    this.mensalidadeService.PegarPeloId(mensalidadeId).subscribe(resultado =>
     {
       this.titulo = `Atualizar mensalidade de ${resultado.dataVencimento.getMonth()}`;
       this.formulario = new FormGroup({
@@ -86,19 +106,19 @@ export class FormMensalidadeComponent implements OnInit
     this.visibilidadeFormulario = false;
   }
 
-  EnviarMensalidade(): void 
+  EnviarMensalidade(): void
   {
     const mensalidade : MensalidadeDTO = this.formulario.value;
 
     if(mensalidade.id > 0)
     {
-      this.mensalidadeServiceDto.AtualizarMensalidade(mensalidade).subscribe(resultado => 
+      this.mensalidadeServiceDto.AtualizarMensalidade(mensalidade).subscribe(resultado =>
       {
         alert(resultado.body.message)
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
-        this.mensalidadeService.PegarTodos().subscribe(registros => 
+        this.mensalidadeService.PegarTodos().subscribe(registros =>
         {
           this.mensalidades = registros;
         },
@@ -114,7 +134,7 @@ export class FormMensalidadeComponent implements OnInit
     }
     else
     {
-      this.mensalidadeServiceDto.SalvarMensalidade(mensalidade).subscribe(resultado => 
+      this.mensalidadeServiceDto.SalvarMensalidade(mensalidade).subscribe(resultado =>
       {
         alert(resultado.body.message)
         this.visibilidadeFormulario = false;
@@ -146,11 +166,11 @@ export class FormMensalidadeComponent implements OnInit
   ExcluirMensalidade(mensalidadeId)
   {
     console.log(mensalidadeId)
-    this.mensalidadeServiceDto.ExcluirMensalidade(mensalidadeId).subscribe(resultado => 
+    this.mensalidadeServiceDto.ExcluirMensalidade(mensalidadeId).subscribe(resultado =>
     {
       this.modalRef.hide();
       alert(resultado.body.message)
-      this.mensalidadeService.PegarTodos().subscribe(registros => 
+      this.mensalidadeService.PegarTodos().subscribe(registros =>
       {
         this.mensalidades = registros;
       },
@@ -161,7 +181,7 @@ export class FormMensalidadeComponent implements OnInit
     },
     (erro) =>
     {
-      alert("Ocorreu um erro na exclusão do item")
+      alert("A mensalidade não pode ser excluída por estar em aberto")
     });
   }
 }

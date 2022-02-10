@@ -5,6 +5,8 @@ import { DependenteDTOService } from '../DTOs/Services/dependente-dto.service';
 import { DependenteService } from '../Domain/Services/dependente.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { SocioService } from '../Domain/Services/socio.service';
+import { Socio } from '../Domain/Socio';
 
 
 
@@ -13,21 +15,24 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   templateUrl: './forms-cadastro-dependente.component.html',
   styleUrls: ['./forms-cadastro-dependente.component.css']
 })
-export class FormsCadastroDependenteComponent implements OnInit 
+export class FormsCadastroDependenteComponent implements OnInit
 {
-  constructor(private dependenteServiceDto: DependenteDTOService, private dependenteService: DependenteService,
+  constructor(private dependenteServiceDto: DependenteDTOService,
+          private dependenteService: DependenteService,
+          private socioService: SocioService,
           private modalService: BsModalService ) { }
 
   titulo: string;
   formulario: any;
   nomeDependente: string;
   visibilidadeTabela: boolean = true;
+  socios: Socio[];
   visibilidadeFormulario: boolean = false;
   dependenteId: number;
   dependentes: Dependente[];
   modalRef: BsModalRef;
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
 
     this.dependenteService.PegarTodos().subscribe(resultados =>
@@ -44,6 +49,20 @@ export class FormsCadastroDependenteComponent implements OnInit
     (erro) =>
     {
       alert("Ocorreu um erro na listagem")
+    });
+
+    this.socioService.PegarTodos().subscribe(resultados => {
+
+      let socios = [];
+
+      resultados.forEach((resultado)=>{
+        console.log(resultado.id)
+
+        socios.push(resultado)
+
+      });
+
+      this.socios = socios;
     });
   }
 
@@ -67,7 +86,7 @@ export class FormsCadastroDependenteComponent implements OnInit
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
-    this.dependenteService.PegarPeloId(dependenteId).subscribe(resultado => 
+    this.dependenteService.PegarPeloId(dependenteId).subscribe(resultado =>
     {
       this.titulo = `Atualizar dependente ${resultado.nome}`;
       this.formulario = new FormGroup({
@@ -85,25 +104,25 @@ export class FormsCadastroDependenteComponent implements OnInit
     });
   }
 
-  Voltar() : void 
+  Voltar() : void
   {
     this.visibilidadeFormulario = false;
     this.visibilidadeTabela = true;
   }
 
-  EnviarDependente(): void 
+  EnviarDependente(): void
   {
     const dependente : DependenteDTO = this.formulario.value;
 
     if(dependente.id > 0)
     {
-      this.dependenteServiceDto.AtualizarDependente(dependente).subscribe(resultado => 
+      this.dependenteServiceDto.AtualizarDependente(dependente).subscribe(resultado =>
       {
         alert(resultado.body.message);
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
-        this.dependenteService.PegarTodos().subscribe(registros => 
+        this.dependenteService.PegarTodos().subscribe(registros =>
         {
           this.dependentes = registros;
         })
@@ -115,13 +134,13 @@ export class FormsCadastroDependenteComponent implements OnInit
     }
     else
     {
-      this.dependenteServiceDto.SalvarDependente(dependente).subscribe(resultado => 
+      this.dependenteServiceDto.SalvarDependente(dependente).subscribe(resultado =>
       {
         alert(resultado.body.message);
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
-        this.dependenteService.PegarTodos().subscribe(registros => 
+        this.dependenteService.PegarTodos().subscribe(registros =>
         {
           this.dependentes = registros
         },
@@ -146,11 +165,11 @@ export class FormsCadastroDependenteComponent implements OnInit
 
   ExcluirDependente(dependenteId)
   {
-    this.dependenteServiceDto.ExcluirDependente(dependenteId).subscribe(resultado => 
+    this.dependenteServiceDto.ExcluirDependente(dependenteId).subscribe(resultado =>
     {
       this.modalRef.hide();
       alert(resultado.body.message);
-      this.dependenteService.PegarTodos().subscribe(registros => 
+      this.dependenteService.PegarTodos().subscribe(registros =>
       {
         this.dependentes = registros;
       },

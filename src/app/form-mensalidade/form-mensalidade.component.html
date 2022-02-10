@@ -28,7 +28,7 @@
           <th>Cartão sócio</th>
           <th>Ações</th>
         </tr>
-      
+
         <tr *ngFor="let mensalidade of mensalidades">
           <td>{{mensalidade.id}}</td>
           <td>{{mensalidade.dataVencimento}}</td>
@@ -49,65 +49,111 @@
 </div>
 
 <div class="container p-5" *ngIf="visibilidadeFormulario">
-  <div class="row" style="justify-content: center;">
+  <div class="row justify-content-center">
     <div class="col-9 border border Light rounded p-5 shadow"  *ngIf="formulario">
-      <h6>{{titulo}}</h6>
-      <hr/>
+      <h6 class="titulo-cadastro">{{titulo}}</h6>
+      <br>
       <form [formGroup]="formulario" (ngSubmit)="EnviarMensalidade()">
 
-        <div class="form-group">
-          <label>Data de vencimento:</label>
-          <input type="date" class="form-control form-control-sm" formControlName="dataVencimento">
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Data de vencimento:</label>
+              <input type="date" class="form-control form-control-sm" formControlName="dataVencimento">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label>Data de pagamento:</label>
+              <input type="date" class="form-control form-control-sm" formControlName="dataPagamento">
+            </div>
+          </div>
         </div>
-  
-        <div class="form-group">
-          <label>Valor inicial:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="valorInicial">
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Valor inicial:</label>
+              <input type="number" class="form-control form-control-sm" formControlName="valorInicial">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label>Valor final:</label>
+              <input type="number" class="form-control form-control-sm" formControlName="valorFinal">
+            </div>
+          </div>
         </div>
-  
-        <div class="form-group">
-          <label>Data de pagamento:</label>
-          <input type="date" class="form-control form-control-sm" formControlName="dataPagamento">
+
+
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Juros:</label>
+              <input type="number" class="form-control form-control-sm" formControlName="juros">
+            </div>
+          </div>
+          <div class="col">
+            <div class="combo-socio">
+              <label>Selecione o sócio: </label>
+
+              <select name="form-control form-control-sm" id="socios" formControlName="fkSocio">
+                <option value="" disabled selected>Selecione um sócio</option>
+                <option *ngFor="let socio of socios" [ngValue]="socio.id">{{socio.nome}}</option>
+              </select>
+
+            </div>
+
+          </div>
         </div>
-  
-        <div class="form-group">
-          <label>Juros:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="juros">
+
+        <br>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox"  formControlName="quitada">
+          <label class="form-check-label" for="flexCheckDefault">
+            Quitada
+          </label>
         </div>
-  
-        <div class="form-group">
-          <label>Valor final:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="valorFinal">
-        </div>
-  
-        <div class="form-group">
+
+        <br>
+
+
+
+        <!-- <div class="form-group">
           <label>Quitada:</label>
           <input type="text" class="form-control form-control-sm" formControlName="quitada">
-        </div>
-  
-        <div class="form-group">
-          <label>Id socio:</label>
+        </div> -->
+
+
+          <!-- Combo box socio -->
+
+
+        <!-- <div class="form-group">
+          <label>Sócio:</label>
           <input type="number" class="form-control form-control-sm" formControlName="fkSocio">
-        </div>
-  
-  
+        </div> -->
+
+
         <div class="container">
-          <div class="row">
+          <div class="row justify-content-end">
             <div>
               <button type="submit" class="btn btn-sm btn-success">Salvar</button>
             </div>
             <div class="pl-1">
               <button type="submit" class="btn btn-sm btn-outline-slight" (click)="Voltar()">Voltar</button>
             </div>
-  
+
           </div>
         </div>
-  
+
       </form>
     </div>
   </div>
 </div>
- 
+
 <ng-template #conteudoModal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Confirmação</h4>

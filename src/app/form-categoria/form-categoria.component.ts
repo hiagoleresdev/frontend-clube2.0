@@ -27,7 +27,7 @@ export class FormCategoriaComponent implements OnInit
   categorias: Categoria[];
   modalRef: BsModalRef;
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
     this.categoriaService.PegarTodos().subscribe((resultados) =>
     {
@@ -64,7 +64,7 @@ export class FormCategoriaComponent implements OnInit
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
-    this.categoriaService.PegarPeloId(idCategoria).subscribe((resultado) => 
+    this.categoriaService.PegarPeloId(idCategoria).subscribe((resultado) =>
     {
       this.titulo = `Atualizar categoria ${resultado.tipo}`;
 
@@ -80,26 +80,26 @@ export class FormCategoriaComponent implements OnInit
     });
   }
 
-  EnviarCategoria(): void 
+  EnviarCategoria(): void
   {
     const categoria : CategoriaDTO = this.formulario.value;
 
     if(categoria.id > 0)
     {
-      this.categoriasServiceDto.AtualizarCategoria(categoria).subscribe((resultado) => 
+      this.categoriasServiceDto.AtualizarCategoria(categoria).subscribe((resultado) =>
       {
         alert(resultado.body.message)
         this.visibilidadeTabela = true;
         this.visibilidadeFormulario = false;
-        this.categoriaService.PegarTodos().subscribe((resultados) => 
+        this.categoriaService.PegarTodos().subscribe((resultados) =>
         {
           let categorias = [];
-    
+
           resultados.forEach((resultado)=>
           {
-            categorias.push(resultado)  
+            categorias.push(resultado)
           });
-    
+
           this.categorias = categorias;
         },
         (erro) =>
@@ -115,21 +115,21 @@ export class FormCategoriaComponent implements OnInit
     else
     {
 
-      this.categoriasServiceDto.SalvarCategoria(categoria).subscribe((resultado) => 
+      this.categoriasServiceDto.SalvarCategoria(categoria).subscribe((resultado) =>
       {
         alert(resultado.body.message);
         this.visibilidadeTabela = true;
         this.visibilidadeFormulario = false;
-        this.categoriaService.PegarTodos().subscribe((resultados) => 
+        this.categoriaService.PegarTodos().subscribe((resultados) =>
         {
           let categorias = [];
-    
+
           resultados.forEach((resultado)=>
           {
             categorias.push(resultado)
-    
+
           });
-    
+
           this.categorias = categorias;
         },
         (erro) =>
@@ -159,21 +159,21 @@ export class FormCategoriaComponent implements OnInit
 
   ExcluirCategoria(idCategoria)
   {
-    this.categoriasServiceDto.ExcluirCategoria(idCategoria).subscribe((resultado) => 
+    this.categoriasServiceDto.ExcluirCategoria(idCategoria).subscribe((resultado) =>
     {
       this.modalRef.hide();
       alert(resultado.body.message);
       this.visibilidadeTabela = false;
       this.visibilidadeTabela = true;
-      this.categoriaService.PegarTodos().subscribe((resultados) => 
+      this.categoriaService.PegarTodos().subscribe((resultados) =>
       {
         let categorias = [];
-  
+
         resultados.forEach((resultado)=>
         {
           categorias.push(resultado)
         });
-  
+
         this.categorias = categorias;
       },
       (erro) =>
@@ -183,7 +183,7 @@ export class FormCategoriaComponent implements OnInit
     },
     (erro) =>
     {
-      alert("Ocorreu um erro na exclusão do item")
+      alert("A categoria não pode ser excluída por estar em utilização")
     });
   }
 }
