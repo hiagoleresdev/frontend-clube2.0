@@ -61,11 +61,11 @@ h5
 
 @media (max-width: 330px){
     #btn-NovaCategoria{
-        font-size: 0.75em;
+        font-size: 0.45em;
     }
 }
 @media (max-width: 290px){
     #btn-NovaCategoria{
-        font-size: 0.5em;
+        font-size: 0.2em;
     }
 }
