@@ -10,13 +10,13 @@
     <hr/>
 
     <div class="mensagem" *ngIf="socios.length == 0">
-      <h6 class="text-center">A lista de sócios está vazia</h6>
+      <h5 class="text-center">A lista de sócios está vazia</h5>
       <div class="icone">
         <i class="bi bi-file-earmark-excel-fill"></i>
       </div>
     </div>
     <div *ngIf="socios.length > 0">
-      <table class="table table-striped table-hover table-sm">
+      <table class="table table-striped table-hover table-sm table-responsive">
         <tr class="thead tabela">
           <th>Id</th>
           <th>Nome</th>
@@ -45,8 +45,15 @@
           <td>{{socio.logradouro}}</td>
           <td>{{socio.categoria.tipo}}</td>
           <td>
-            <button type="button" class="btn btn-success" style="margin-right: 20px;" (click)="ExibirFormularioAtualizacao(socio.id)">Atualizar</button>
-            <button type="button" class="btn btn-danger" (click)="ExibirConfirmacaoExclusao(socio.id, socio.nome, conteudoModal)">Excluir</button>
+            <div class="row">
+              <div class="col-5"> 
+                <button type="button" id="btn-atualizar" class="btn btn-success" style="margin-right: 20px;" (click)="ExibirFormularioAtualizacao(socio.id)">Atualizar</button>
+              </div>
+              <div class="col-5">
+                <button type="button" id="btn-excluir" class="btn btn-danger" (click)="ExibirConfirmacaoExclusao(socio.id, socio.nome, conteudoModal)">Excluir</button>
+              </div>
+            </div>
+            
           </td>
         </tr>
       </table>
@@ -55,8 +62,8 @@
 </div>
 
 <div class="container p-5" *ngIf="visibilidadeFormulario">
-  <div class="row">
-    <div class="col-6 border border Light rounded p-5 shadow" *ngIf="formulario">
+  <div class="row" style="justify-content: center;">
+    <div class="col-9 border border Light rounded p-5 shadow" *ngIf="formulario">
       <h6>{{titulo}}</h6>
       <hr/>
       <form [formGroup]="formulario" (ngSubmit)="EnviarSocio()">

@@ -28,3 +28,14 @@ h5
     font-size: 100px;
 }
 
+#btn-atualizar{        
+    font-size: 0.7em;
+    
+}
+
+#btn-excluir{
+    font-size: 0.7em;
+    margin-left: 20px;
+}
+
+

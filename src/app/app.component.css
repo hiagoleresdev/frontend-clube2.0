@@ -3,3 +3,7 @@
   color: white;
   background-color: #0477bf;
 }
+
+.body{
+  min-height: 100vh;
+}

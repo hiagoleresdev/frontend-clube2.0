@@ -38,3 +38,8 @@ waves{
         transform: translate(-1600px);
     }
 }
+
+#footer{
+    background-color: blue;
+    height: 20px;
+}
