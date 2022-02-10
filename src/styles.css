@@ -30,6 +30,7 @@ body{
   font-weight: 600 !important;
 }
 
+/*
 .form-control
 {
   display: block;
@@ -46,7 +47,7 @@ body{
   border-radius: 0;
   background-color: #fff;
   background-clip: padding-box;
-}
+}*/
 
 .form-control:focus
 {
@@ -81,3 +82,13 @@ body{
   color: white
 }
 
+.titulo-cadastro{
+  font-size: 30px;
+  color: #0477bf;
+  text-align:  center;
+}
+
+.combo-socio
+{
+  margin-top: 30px;
+}

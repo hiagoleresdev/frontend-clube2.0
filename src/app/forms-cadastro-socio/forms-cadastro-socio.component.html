@@ -31,7 +31,7 @@
           <th>Categoria</th>
           <th>Ações</th>
         </tr>
-      
+
         <tr *ngFor="let socio of socios">
           <td>{{socio.id}}</td>
           <td>{{socio.nome}}</td>
@@ -46,14 +46,14 @@
           <td>{{socio.categoria.tipo}}</td>
           <td>
             <div class="row">
-              <div class="col-5"> 
+              <div class="col-5">
                 <button type="button" id="btn-atualizar" class="btn btn-success" style="margin-right: 20px;" (click)="ExibirFormularioAtualizacao(socio.id)">Atualizar</button>
               </div>
               <div class="col-5">
                 <button type="button" id="btn-excluir" class="btn btn-danger" (click)="ExibirConfirmacaoExclusao(socio.id, socio.nome, conteudoModal)">Excluir</button>
               </div>
             </div>
-            
+
           </td>
         </tr>
       </table>
@@ -62,60 +62,103 @@
 </div>
 
 <div class="container p-5" *ngIf="visibilidadeFormulario">
-  <div class="row" style="justify-content: center;">
+  <div class="row justify-content-center">
     <div class="col-9 border border Light rounded p-5 shadow" *ngIf="formulario">
-      <h6>{{titulo}}</h6>
-      <hr/>
+      <h6 class="titulo-cadastro">{{titulo}}</h6>
+
+
+
       <form [formGroup]="formulario" (ngSubmit)="EnviarSocio()">
-        <div class="form-group">
-          <label>Nome:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="nome">
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Nome:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="nome">
+            </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Email:</label>
+                <input type="email" class="form-control form-control-sm" formControlName="email">
+              </div>
+            </div>
         </div>
 
-        <div class="form-group">
-          <label>Email:</label>
-          <input type="email" class="form-control form-control-sm" formControlName="email">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Telefone:</label>
+              <input type="text"
+              [dropSpecialCharacters]="true"
+              mask= "(00)00000-0000"
+              class="form-control form-control-sm"
+              formControlName="telefone">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label>Número do cartão:</label>
+              <input type="number" class="form-control form-control-sm" formControlName="numeroCartao">
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Número do cartão:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="numeroCartao">
+        <hr>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Cidade:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="cidade">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label>CEP:</label>
+              <input type="number" class="form-control form-control-sm" formControlName="cep">
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Telefone:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="telefone">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Bairro:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="bairro">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label>Logradouro:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="logradouro">
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>CEP:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="cep">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label>UF:</label>
+              <input type="text" class="form-control form-control-sm" formControlName="uf">
+            </div>
+          </div>
+
         </div>
 
-        <div class="form-group">
-          <label>UF:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="uf">
-        </div>
+        <hr>
 
-        <div class="form-group">
-          <label>Cidade:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="cidade">
-        </div>
+        <br>
 
-        <div class="form-group">
-          <label>Bairro:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="bairro">
-        </div>
+        <label>Categoria: </label>
 
-        <div class="form-group">
-          <label>Logradouro:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="logradouro">
-        </div>
+        <select name="form-control form-control-sm" id="categorias" formControlName="fkcategoria">
+          <option value="" disabled selected>Selecione uma categoria</option>
+          <option *ngFor="let categoria of categorias" [ngValue]="categoria.id">{{categoria.tipo}}</option>
+        </select>
 
-        <div class="form-group">
-          <label>Categoria:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="fkcategoria">
-        </div>
+        <br>
+        <br>
 
         <div class="container">
           <div class="row">
@@ -129,7 +172,7 @@
         </div>
       </form>
     </div>
-  
+
     <ng-template #conteudoModal>
       <div class="modal-header">
         <h4 class="modal-title pull-left">Confirmação</h4>
@@ -140,7 +183,7 @@
       <div class="modal-body">
         Prosseguir com a exclusao?
       </div>
-  
+
       <div class="modal-footer">
         <button type="button" class="btn btn-light" (click)="modalRef.hide()">Não</button>
         <button type="button" class="btn btn-outline-danger" (click)="ExcluirSocio(socioId)">Sim</button>
@@ -148,7 +191,7 @@
     </ng-template>
   </div>
 </div>
- 
+
 <ng-template #conteudoModal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Confirmação</h4>

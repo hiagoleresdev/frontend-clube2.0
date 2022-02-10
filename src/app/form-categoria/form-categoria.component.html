@@ -23,7 +23,7 @@
           <th class="col-3">Meses</th>
           <th class="col-3">Ações</th>
         </tr>
-      
+
         <tr *ngFor="let categoria of categorias">
           <td>{{categoria.id}}</td>
           <td>{{categoria.tipo}}</td>
@@ -39,24 +39,24 @@
 </div>
 
 <div class="container p-5" *ngIf="visibilidadeFormulario">
-  <div class="row" style="justify-content: center;">
+  <div class="row justify-content-center">
     <div class="col-9 border border Light rounded p-5 shadow" *ngIf="formulario">
-      <h6>{{titulo}}</h6>
-      <hr/>
+      <h6 class="titulo-cadastro">{{titulo}}</h6>
+      
 
-      <form [formGroup]="formulario" (ngSubmit)="EnviarCategoria()"> 
+      <form [formGroup]="formulario" (ngSubmit)="EnviarCategoria()">
         <div class="form-group">
           <label>Tipo:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="tipo">
+          <input type="text" class="form-control form-control-sm" formControlName="tipo" placeholder="Digite o tipo da categoria">
         </div>
 
         <div class="form-group">
           <label>Meses:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="meses">
+          <input type="number" class="form-control form-control-sm" formControlName="meses" placeholder="Digite a quantidade de meses">
         </div>
 
         <div class="container">
-          <div class="row">
+          <div class="row justify-content-end">
             <div>
               <button type="submit" class="btn btn-sm btn-success">Salvar</button>
             </div>
@@ -69,7 +69,7 @@
     </div>
   </div>
 </div>
- 
+
 <ng-template #conteudoModal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Confirmação</h4>

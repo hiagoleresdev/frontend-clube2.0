@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Categoria } from '../Domain/Categoria';
+import { CategoriaService } from '../Domain/Services/categoria.service';
 import { SocioService } from '../Domain/Services/socio.service';
 import { Socio } from '../Domain/Socio';
 import { SocioDTOService } from '../DTOs/Services/socio-dto.service';
@@ -11,10 +13,11 @@ import { SocioDTO } from '../DTOs/SocioDTO';
   templateUrl: './forms-cadastro-socio.component.html',
   styleUrls: ['./forms-cadastro-socio.component.css']
 })
-export class FormsCadastroSocioComponent implements OnInit 
+export class FormsCadastroSocioComponent implements OnInit
 {
   constructor(private sociosServiceDto: SocioDTOService,
      private socioService: SocioService,
+     private categoriaService: CategoriaService,
      private modalService: BsModalService) { }
 
   titulo: string;
@@ -22,13 +25,14 @@ export class FormsCadastroSocioComponent implements OnInit
   nomeSocio: string;
   socioId: number;
   socios: Socio[];
+  categorias: Categoria[];
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
   modalRef: BsModalRef;
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
-    this.socioService.PegarTodos().subscribe(resultados => 
+    this.socioService.PegarTodos().subscribe(resultados =>
     {
       let socios = [];
 
@@ -38,6 +42,23 @@ export class FormsCadastroSocioComponent implements OnInit
       });
 
       this.socios = socios
+    },
+    (erro) =>
+    {
+      alert("Ocorreu um erro na listagem")
+    });
+
+    this.categoriaService.PegarTodos().subscribe((resultados) =>
+    {
+
+      let categorias = [];
+
+      resultados.forEach((resultado)=>
+      {
+        categorias.push(resultado)
+      });
+
+      this.categorias = categorias;
     },
     (erro) =>
     {
@@ -70,7 +91,7 @@ export class FormsCadastroSocioComponent implements OnInit
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
 
-    this.socioService.PegarPeloId(socioId).subscribe(resultado => 
+    this.socioService.PegarPeloId(socioId).subscribe(resultado =>
     {
       this.titulo = `Atualizar sócio(a) ${resultado.nome}`;
       this.formulario = new FormGroup({
@@ -99,19 +120,19 @@ export class FormsCadastroSocioComponent implements OnInit
     this.visibilidadeFormulario = false;
   }
 
-  EnviarSocio(): void 
+  EnviarSocio(): void
   {
     const socio : SocioDTO = this.formulario.value;
 
     if(socio.id > 0)
     {
-      this.sociosServiceDto.AtualizarSocio(socio).subscribe(resultado => 
+      this.sociosServiceDto.AtualizarSocio(socio).subscribe(resultado =>
       {
         alert(resultado.body.message)
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
-        this.socioService.PegarTodos().subscribe(registros => 
+        this.socioService.PegarTodos().subscribe(registros =>
         {
           this.socios = registros;
         },
@@ -127,7 +148,7 @@ export class FormsCadastroSocioComponent implements OnInit
     }
     else
     {
-      this.sociosServiceDto.SalvarSocio(socio).subscribe(resultado => 
+      this.sociosServiceDto.SalvarSocio(socio).subscribe(resultado =>
       {
         alert(resultado.body.message)
         this.visibilidadeFormulario = false;
@@ -158,11 +179,11 @@ export class FormsCadastroSocioComponent implements OnInit
 
   ExcluirSocio(socioId)
   {
-    this.sociosServiceDto.ExcluirSocio(socioId).subscribe(resultado => 
+    this.sociosServiceDto.ExcluirSocio(socioId).subscribe(resultado =>
     {
       this.modalRef.hide();
       alert(resultado.body.message)
-      this.socioService.PegarTodos().subscribe(registros => 
+      this.socioService.PegarTodos().subscribe(registros =>
       {
         this.socios = registros;
       },

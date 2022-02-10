@@ -25,7 +25,7 @@
           <th>Cartão sócio</th>
           <th>Ações</th>
         </tr>
-      
+
         <tr *ngFor="let dependente of dependentes">
           <td>{{dependente.id}}</td>
           <td>{{dependente.nome}}</td>
@@ -43,38 +43,48 @@
 </div>
 
 <div class="container p-5" *ngIf="visibilidadeFormulario">
-  <div class="row" style="justify-content: center;">
+  <div class="row justify-content-center">
     <div class="col-9 border border Light rounded p-5 shadow" *ngIf="formulario">
-      <h6>{{titulo}}</h6>
-      <hr/>
+      <h6 class="titulo-cadastro">{{titulo}}</h6>
+
       <form [formGroup]="formulario" (ngSubmit)="EnviarDependente()">
         <div class="form-group">
           <label>Nome:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="nome">
+          <input type="text" class="form-control form-control-sm" formControlName="nome" placeholder="Digite seu nome">
         </div>
 
         <div class="form-group">
           <label>Email:</label>
-          <input type="email" class="form-control form-control-sm" formControlName="email">
+          <input type="email" class="form-control form-control-sm" formControlName="email" placeholder="Digite seu email">
         </div>
 
         <div class="form-group">
           <label>Parentesco:</label>
-          <input type="text" class="form-control form-control-sm" formControlName="parentesco">
+          <input type="text" class="form-control form-control-sm" formControlName="parentesco" placeholder="Digite o parentesco">
         </div>
 
         <div class="form-group">
           <label>Numero do cartão:</label>
-          <input type="number" class="form-control form-control-sm" formControlName="numeroCartao">
+          <input type="number" class="form-control form-control-sm" formControlName="numeroCartao" placeholder="Digite o número do cartão do sócio">
         </div>
 
-        <div class="form-group">
+        <br>
+        <br>
+
+        <label>Selecione o sócio: </label>
+
+        <select name="form-control form-control-sm" id="socios" formControlName="fkSocio">
+            <option value="" disabled selected>Selecione um sócio</option>
+            <option *ngFor="let socio of socios" [ngValue]="socio.id">{{socio.nome}}</option>
+        </select>
+
+        <!-- <div class="form-group">
           <label>Id do Socio:</label>
           <input type="number" class="form-control form-control-sm" formControlName="fkSocio">
-        </div>
+        </div> -->
 
         <div class="container">
-          <div class="row">
+          <div class="row justify-content-end">
             <div>
               <button type="submit" class="btn btn-sm btn-success">Salvar</button>
             </div>
@@ -88,7 +98,7 @@
     </div>
   </div>
 </div>
- 
+
 <ng-template #conteudoModal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Confirmação</h4>

@@ -32,8 +32,15 @@ import { DependenteDTOService } from './DTOs/Services/dependente-dto.service';
 import { MensalidadeDTOService } from './DTOs/Services/mensalidade-dto.service';
 import { SocioDTOService } from './DTOs/Services/socio-dto.service';
 
+import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
+
 @NgModule({
   declarations: [
+
     AppComponent,
     NavbarClubeComponent,
     FormsCadastroSocioComponent,
@@ -45,6 +52,8 @@ import { SocioDTOService } from './DTOs/Services/socio-dto.service';
     AnimacaoOndasComponent
   ],
   imports: [
+    NgxMaskModule.forRoot(),
+    TextMaskModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,
@@ -53,7 +62,7 @@ import { SocioDTOService } from './DTOs/Services/socio-dto.service';
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
-    ModalModule.forRoot()    
+    ModalModule.forRoot()
   ],
   providers: [LoginAutenticacaoService, HttpClientModule, CategoriaService,
   DependenteService, FuncionarioService, MensalidadesService, SocioService ],
