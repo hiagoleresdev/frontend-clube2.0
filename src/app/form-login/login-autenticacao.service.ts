@@ -32,4 +32,8 @@ export class LoginAutenticacaoService {
     }
     )
   }
+
+  usuarioEstaAutenticado(){
+    return this.usuarioAutenticado;
+  }
 }

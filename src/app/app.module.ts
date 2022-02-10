@@ -25,6 +25,7 @@ import { DependenteService } from './Domain/Services/dependente.service';
 import { FuncionarioService } from './Domain/Services/funcionario.service';
 import { MensalidadesService } from './Domain/Services/mensalidades.service';
 import { SocioService } from './Domain/Services/socio.service';
+import { AuthGuard } from './guard/auth.guard';
 
 import { CategoriaDTOService } from './DTOs/Services/categoria-dto.service';
 import { DependenteDTOService } from './DTOs/Services/dependente-dto.service';
@@ -55,7 +56,7 @@ import { SocioDTOService } from './DTOs/Services/socio-dto.service';
     HttpClientModule,
     ModalModule.forRoot()    
   ],
-  providers: [LoginAutenticacaoService, HttpClientModule, CategoriaService,
+  providers: [AuthGuard,LoginAutenticacaoService, HttpClientModule, CategoriaService,
   DependenteService, FuncionarioService, MensalidadesService, SocioService ],
   bootstrap: [AppComponent]
 })

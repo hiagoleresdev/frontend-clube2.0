@@ -1,3 +1,4 @@
+import { AuthGuard } from './guard/auth.guard';
 import { ModuleWithProviders, NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -12,11 +13,11 @@ const routes: Routes = [
   
   { path: "", redirectTo: "login", pathMatch: 'full'},
   { path: "login", component: FormLoginComponent},
-  { path: "socio", component: FormsCadastroSocioComponent},
-  { path: "dependente", component: FormsCadastroDependenteComponent},
-  { path: "categoria", component: FormCategoriaComponent},
-  { path: "mensalidade", component: FormMensalidadeComponent},
-  { path: "home", component: HomeClubeComponent},
+  { path: "socio", component: FormsCadastroSocioComponent, canActivate:[AuthGuard]},
+  { path: "dependente", component: FormsCadastroDependenteComponent, canActivate:[AuthGuard]},
+  { path: "categoria", component: FormCategoriaComponent, canActivate:[AuthGuard]},
+  { path: "mensalidade", component: FormMensalidadeComponent, canActivate:[AuthGuard]},
+  { path: "home", component: HomeClubeComponent, canActivate:[AuthGuard]},
 
 ];
 
