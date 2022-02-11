@@ -128,7 +128,7 @@ export class FormsCadastroSocioComponent implements OnInit
     {
       this.sociosServiceDto.AtualizarSocio(socio).subscribe(resultado =>
       {
-        alert(resultado.body.message)
+        alert(resultado.message)
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
@@ -150,7 +150,7 @@ export class FormsCadastroSocioComponent implements OnInit
     {
       this.sociosServiceDto.SalvarSocio(socio).subscribe(resultado =>
       {
-        alert(resultado.body.message)
+        alert(resultado.message)
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
@@ -182,7 +182,7 @@ export class FormsCadastroSocioComponent implements OnInit
     this.sociosServiceDto.ExcluirSocio(socioId).subscribe(resultado =>
     {
       this.modalRef.hide();
-      alert(resultado.body.message)
+      alert(resultado.message)
       this.socioService.PegarTodos().subscribe(registros =>
       {
         this.socios = registros;
