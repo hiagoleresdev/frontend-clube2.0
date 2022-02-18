@@ -55,11 +55,9 @@ export class FormsCadastroDependenteComponent implements OnInit
 
       let socios = [];
 
-      resultados.forEach((resultado)=>{
-        console.log(resultado.id)
-
+      resultados.forEach((resultado)=>
+      {
         socios.push(resultado)
-
       });
 
       this.socios = socios;
@@ -118,7 +116,7 @@ export class FormsCadastroDependenteComponent implements OnInit
     {
       this.dependenteServiceDto.AtualizarDependente(dependente).subscribe(resultado =>
       {
-        alert(resultado.body.message);
+        alert(resultado.message);
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
@@ -136,7 +134,7 @@ export class FormsCadastroDependenteComponent implements OnInit
     {
       this.dependenteServiceDto.SalvarDependente(dependente).subscribe(resultado =>
       {
-        alert(resultado.body.message);
+        alert(resultado.message);
         this.visibilidadeFormulario = false;
         this.visibilidadeTabela = true;
 
@@ -168,7 +166,7 @@ export class FormsCadastroDependenteComponent implements OnInit
     this.dependenteServiceDto.ExcluirDependente(dependenteId).subscribe(resultado =>
     {
       this.modalRef.hide();
-      alert(resultado.body.message);
+      alert(resultado.message);
       this.dependenteService.PegarTodos().subscribe(registros =>
       {
         this.dependentes = registros;
